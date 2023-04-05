@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Arsene <Arsene@student.42.fr>              +#+  +:+       +#+        */
+/*   By: arurangi <arurangi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 07:24:28 by Arsene            #+#    #+#             */
-/*   Updated: 2023/04/04 08:23:26 by Arsene           ###   ########.fr       */
+/*   Updated: 2023/04/05 11:24:40 by arurangi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 # include <stdlib.h>
 
 # define ARG_ERROR 0
-# define ARG_SUCCESS 0
+# define ARG_SUCCESS 1
 # define TRUE 1
 # define FALSE 0
 # define ERR_EXISTANCE -1
@@ -36,10 +36,15 @@
 # define CBOLD   "\x1b[1m"
 # define CRESET   "\x1b[0m"
 
-int	ft_check_arguments(int arg_count, char **arg_list);
-int	ft_is_only_digits(char *str);
-int	ft_isdigit(char ch);
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~ CHECKERS ~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+int		ft_check_arguments(int arg_count, char **arg_list);
+int		ft_is_only_digits(char *str);
+int		ft_isdigit(char ch);
 
-int	error_msg(char *type, char *msg, int code);
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~ ERRORS ~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+int		error_msg(char *type, char *msg, int code);
+
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~ DISPLAY ~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+void	display_args(int arg_count, char **arg_list);
 
 #endif

@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   checker.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Arsene <Arsene@student.42.fr>              +#+  +:+       +#+        */
+/*   By: arurangi <arurangi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 08:13:48 by Arsene            #+#    #+#             */
-/*   Updated: 2023/04/04 08:28:02 by Arsene           ###   ########.fr       */
+/*   Updated: 2023/04/05 11:23:56 by arurangi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo.h"
+#include "../includes/philo.h"
 
 int	ft_isdigit(char ch)
 {
@@ -39,9 +39,9 @@ int	ft_check_arguments(int arg_count, char **arg_list)
 {
 	int	index;
 
-	if (arg_count != 6)
+	if (arg_count < 5 || arg_count > 6)
 		return (error_msg("Usage",
-				"nbr_of_philo lifeTime eatingTime sleepTime totalEatingTime",
+				"nbr_of_philo lifeTime eatingTime sleepTime (totalEatingTime)",
 				0));
 	index = 1;
 	while (index < arg_count && arg_list[index])

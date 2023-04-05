@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Arsene <Arsene@student.42.fr>              +#+  +:+       +#+        */
+/*   By: arurangi <arurangi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 07:24:13 by Arsene            #+#    #+#             */
-/*   Updated: 2023/04/04 08:14:07 by Arsene           ###   ########.fr       */
+/*   Updated: 2023/04/05 10:35:46 by arurangi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,14 +28,15 @@ pthread_mutex_unlock
  * [5] number_of_times_each_philosopher_must_eat
 */
 
-#include "philo.h"
+#include "../includes/philo.h"
 
-int main(int arg_count, char **arg_list)
+int	main(int arg_count, char **arg_list)
 {
-    int status;
-    
-    status = ft_check_arguments(arg_count, arg_list);
-    if (status == ARG_ERROR)
-        return (EXIT_FAILURE);
-    return (EXIT_SUCCESS);
+	int	status;
+
+	status = ft_check_arguments(arg_count, arg_list);
+	if (status == ARG_ERROR)
+		return (EXIT_FAILURE);
+	display_args(arg_count, arg_list);
+	return (EXIT_SUCCESS);
 }
