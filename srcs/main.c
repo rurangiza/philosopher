@@ -6,7 +6,7 @@
 /*   By: arurangi <arurangi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 07:24:13 by Arsene            #+#    #+#             */
-/*   Updated: 2023/04/06 16:45:52 by arurangi         ###   ########.fr       */
+/*   Updated: 2023/04/06 16:52:45 by arurangi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	*routine()
 {
 	while (lock_access != 0)
 		usleep(1);
-	lock_accces = 2;
+	lock_access = 2;
 	for (int i = 0; i < 1000000; i++)
 		mails++;
 	lock_access = 0;
