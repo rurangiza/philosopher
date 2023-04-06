@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arurangi <arurangi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: Arsene <Arsene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 07:24:13 by Arsene            #+#    #+#             */
-/*   Updated: 2023/04/06 16:52:45 by arurangi         ###   ########.fr       */
+/*   Updated: 2023/04/06 21:00:45 by Arsene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,13 +66,6 @@ int	main(int arg_count, char **arg_list)
 		return (1);
 
 	printf("Numbers of mails: %.d\n", mails);
-	
-	// pid_t pid = fork();
-	// if (pid < 0)
-	// 	return (1);
-	// printf("Process ID [%i]\n", getpid());
-	// if (pid > 0)
-	// 	wait(NULL);
 	
 	return (EXIT_SUCCESS);
 }
