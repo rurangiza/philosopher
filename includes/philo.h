@@ -6,7 +6,7 @@
 /*   By: arurangi <arurangi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 07:24:28 by Arsene            #+#    #+#             */
-/*   Updated: 2023/04/06 12:07:18 by arurangi         ###   ########.fr       */
+/*   Updated: 2023/04/06 15:49:47 by arurangi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@
 # define TRUE 1
 # define FALSE 0
 # define ERR_EXISTANCE -1
+
+# define MODE 0
 
 typedef	enum e_error_types {
 	ERR_USER = 1
@@ -49,6 +51,9 @@ typedef struct global {
 # define CBOLD   "\x1b[1m"
 # define CRESET   "\x1b[0m"
 
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~ INITIALIZER ~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+void	store_input(t_global *global, int arg_count, char **arg_list);
+
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~ CHECKERS ~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 int		valid_user_input(int arg_count, char **arg_list);
 int		ft_is_only_digits(char *str);
@@ -59,6 +64,10 @@ int		error_msg(char *type, char *msg, int code);
 int		err_user(int arg_count);
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~ DISPLAY ~~~~~~~~~~~~~~~~~~~~~~~~~~ */
-void	display_args(int arg_count, char **arg_list);
+void	display(t_global global);
+
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~ LIBRARY ~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+long	ft_atoi(const char *str);
+
 
 #endif

@@ -6,27 +6,66 @@
 #    By: arurangi <arurangi@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/04 07:24:25 by Arsene            #+#    #+#              #
-#    Updated: 2023/04/06 10:50:53 by arurangi         ###   ########.fr        #
+#    Updated: 2023/04/06 14:45:07 by arurangi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-# ~~~~~~ Files and Folders ~~~~~~~~ #
+# ~~~~~~ Variables ~~~~~~~~ #
 NAME		=	philo
-SRC_FOLDER	=	srcs/
-
-SRC_FILES	=	$(SRC_FOLDER)/main.c \
-				$(SRC_FOLDER)/errors.c \
-				$(SRC_FOLDER)/checker.c \
-				$(SRC_FOLDER)/display.c \
 
 COMPILER	=	gcc
 
 FLAGS		=	-Wall -Werror -Wextra $(LINK_OPTION)
 SANITIZER	=	-g -fsanitize=address
-LINK_OPTION	=	-pthread	
+LINK_OPTION	=	-pthread
 
+# ~~~~~~~~ COLOR  ~~~~~~~~~~ #
+CLR_BLACK   = \033[0;30m
+CLR_RED		= \033[0;31m
+CLR_GREEN	= \033[0;32m
+CLR_LBLUE   = \033[0;94m
+CLR_YELLOW  = \033[0;33m
+CLR_MAGENTA = \033[0;35m
+CLR_RESET	= \033[0m
 
+# ~~~~~~ Files and Folders ~~~~~~~~ #
+
+SRC_FOLDER	=	./srcs/
+LIB_FOLDER	=	./srcs/library/
+OBJ_FOLDER	=	
+
+SRC_FILES	=	$(SRC_FOLDER)main.c \
+				$(SRC_FOLDER)errors.c \
+				$(SRC_FOLDER)checker.c \
+				$(SRC_FOLDER)display.c \
+				$(SRC_FOLDER)init.c \
+				$(SRC_FOLDER)library.c \
+
+# ~~~~~~~~~ OBJECT FILES ~~~~~~~~~~~ 
+
+OBJ_FILES	=	${SRC_FILES:.c=.o}
+
+%.o: %.c
+	@$(CC) $(FLAGS)  -c $< -o $@
+	@echo "$(CLR_GREEN)▮\c$(CLR_RESET)"
 
 # ~~~~~~~~~~~~ Rules ~~~~~~~~~~~~~ #
-all:
-	@$(COMPILER) $(FLAGS) -o $(NAME) $(SRC_FILES)
+
+
+all: 	$(NAME)
+		
+$(NAME):	 $(OBJ_FILES) 
+				@$(COMPILER) $(FLAGS) -o $(NAME) $(SRC_FILES)
+
+clean:
+				@rm -f $(OBJ_FILES)		
+
+fclean:	clean
+				@rm -f ${NAME}
+
+re:		fclean all
+
+run:
+	@./$(NAME)
+
+.PHONY:	all clean fclean re
