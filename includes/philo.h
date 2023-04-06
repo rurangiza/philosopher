@@ -6,7 +6,7 @@
 /*   By: arurangi <arurangi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 07:24:28 by Arsene            #+#    #+#             */
-/*   Updated: 2023/04/05 11:24:40 by arurangi         ###   ########.fr       */
+/*   Updated: 2023/04/06 10:27:38 by arurangi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,14 @@
 # define FALSE 0
 # define ERR_EXISTANCE -1
 
+typedef	enum e_error_types {
+	ERR_USER = 1
+}	t_error_types;
+
+typedef struct global {
+	int	arg_count;
+}	t_global;
+
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~ COLORS ~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 # define CGRAY     "\x1b[30m"
 # define CRED     "\x1b[31m"
@@ -37,12 +45,13 @@
 # define CRESET   "\x1b[0m"
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~ CHECKERS ~~~~~~~~~~~~~~~~~~~~~~~~~~ */
-int		ft_check_arguments(int arg_count, char **arg_list);
+int		valid_user_input(int arg_count, char **arg_list);
 int		ft_is_only_digits(char *str);
 int		ft_isdigit(char ch);
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~ ERRORS ~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 int		error_msg(char *type, char *msg, int code);
+int		err_user(int arg_count);
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~ DISPLAY ~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 void	display_args(int arg_count, char **arg_list);

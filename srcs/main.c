@@ -6,36 +6,19 @@
 /*   By: arurangi <arurangi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 07:24:13 by Arsene            #+#    #+#             */
-/*   Updated: 2023/04/05 10:35:46 by arurangi         ###   ########.fr       */
+/*   Updated: 2023/04/06 10:21:07 by arurangi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-memset, printf, malloc, free, write,
-usleep, gettimeofday, pthread_create,
-pthread_detach, pthread_join, pthread_mutex_init,
-pthread_mutex_destroy, pthread_mutex_lock,
-pthread_mutex_unlock
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*/
-
 /*
- * arguments
- * [0] program_name
- * [1] number_of_philosophers
- * [2] time_to_die
- * [3] time_to_eat
- * [4] time_to_sleep
- * [5] number_of_times_each_philosopher_must_eat
+ * Program to discover multi-threading
 */
 
 #include "../includes/philo.h"
 
 int	main(int arg_count, char **arg_list)
 {
-	int	status;
-
-	status = ft_check_arguments(arg_count, arg_list);
-	if (status == ARG_ERROR)
+	if (!valid_user_input(arg_count, arg_list))
 		return (EXIT_FAILURE);
 	display_args(arg_count, arg_list);
 	return (EXIT_SUCCESS);
