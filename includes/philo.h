@@ -6,7 +6,7 @@
 /*   By: arurangi <arurangi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 07:24:28 by Arsene            #+#    #+#             */
-/*   Updated: 2023/04/06 10:27:38 by arurangi         ###   ########.fr       */
+/*   Updated: 2023/04/06 12:07:18 by arurangi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include <unistd.h>
 # include <stdio.h>
 # include <stdlib.h>
+# include <pthread.h>
 
 # define ARG_ERROR 0
 # define ARG_SUCCESS 1
@@ -29,7 +30,11 @@ typedef	enum e_error_types {
 }	t_error_types;
 
 typedef struct global {
-	int	arg_count;
+	int	nbr_of_philo;
+	int	fasting_time;
+	int	eating_time;
+	int	sleep_time;
+	int	max_meals;
 }	t_global;
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~ COLORS ~~~~~~~~~~~~~~~~~~~~~~~~~~ */
