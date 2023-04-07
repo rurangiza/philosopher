@@ -6,7 +6,7 @@
 /*   By: Arsene <Arsene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 07:24:13 by Arsene            #+#    #+#             */
-/*   Updated: 2023/04/06 21:00:45 by Arsene           ###   ########.fr       */
+/*   Updated: 2023/04/07 19:08:54 by Arsene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,54 +18,57 @@
 #include "../includes/philo.h"
 
 int	mails = 0;
-int	lock_access = 0;
 
-void	*routine()
-{
-	while (lock_access != 0)
-		usleep(1);
-	lock_access = 2;
-	for (int i = 0; i < 1000000; i++)
-		mails++;
-	lock_access = 0;
-	return (NULL);
-}
+pthread_mutex_t mutex;
 
 void	*routine2()
 {
-	while (lock_access != 0)
-		usleep(1);
-	lock_access = 3;
-	for (int i = 0; i < 1000000; i++)
-		mails++;
-	lock_access = 0;
+	// take a fork
+	// eat
+	// think
+	// sleep
+	// take a fork
 	return (NULL);
 }
 
-int	main(int arg_count, char **arg_list)
+void	*routine()
 {
-	t_global	global;
-	pthread_t	t1, t2;
+	int	*number = malloc(sizeof(int));
+	number[0] = 264;
+	return ((void *) number);
+}
 
-	if (MODE)
-	{
-		if (!valid_user_input(arg_count, arg_list))
-			return (EXIT_FAILURE);
-		store_input(&global, arg_count, arg_list);
-	}
-	
+int	main(void)
+{
+	pthread_t	id;
+	int			*number;
 
-	if (pthread_create(&t1, NULL, &routine, NULL))
-		return (1);
-	if (pthread_create(&t2, NULL, &routine2, NULL))
-		return (2);
+	//*number = 20;
+	//printf("(before) Number = %d\n", *number);
 	
-	if (pthread_join(t1, NULL))
-		return (1);
-	if (pthread_join(t2, NULL))
-		return (1);
+	pthread_create(&id, NULL, &routine, NULL);
+	pthread_join(id, (void **) &number);
 
-	printf("Numbers of mails: %.d\n", mails);
-	
+	printf("(after) Number = %d\n", *number);
+	free(number);
+
+	system("leaks philo");
 	return (EXIT_SUCCESS);
 }
+
+
+
+// int	main(int arg_count, char **arg_list)
+// {
+// 	t_global	global;
+// 	pthread_t	*thread_id;
+
+// 	// Check user input
+// 	if (!valid_user_input(arg_count, arg_list))
+// 		return (EXIT_FAILURE);
+// 	store_input(&global, arg_count, arg_list);
+
+
+// 	printf("Numbers of mails: %.d\n", mails);
+// 	return (EXIT_SUCCESS);
+// }
