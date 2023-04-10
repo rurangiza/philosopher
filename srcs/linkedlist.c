@@ -6,7 +6,7 @@
 /*   By: arurangi <arurangi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/10 09:54:47 by arurangi          #+#    #+#             */
-/*   Updated: 2023/04/10 11:42:40 by arurangi         ###   ########.fr       */
+/*   Updated: 2023/04/10 11:48:06 by arurangi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ t_philo	*add_philo(t_philo **last, int content)
 }
 
 // delete all nodes
-void	delete_all_philo(t_philo **last)
+void	del_list(t_philo **last)
 {
 	t_philo	*tmp;
 
@@ -54,7 +54,7 @@ void	delete_all_philo(t_philo **last)
 	*last = 0;
 }
 
-void	printlist(t_philo **last)
+void	print_list(t_philo **last)
 {
 	t_philo	*tmp;
 

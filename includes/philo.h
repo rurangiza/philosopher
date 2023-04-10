@@ -6,7 +6,7 @@
 /*   By: arurangi <arurangi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 07:24:28 by Arsene            #+#    #+#             */
-/*   Updated: 2023/04/10 10:57:52 by arurangi         ###   ########.fr       */
+/*   Updated: 2023/04/10 12:00:02 by arurangi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,25 +26,27 @@
 
 # define MODE 0
 
+/* ~~~~~~~~~~~~~~~~~~~~~~~ STRUCTURES ~~~~~~~~~~~~~~~~~~~~~~~ */
+
 typedef	enum e_error_types {
 	ERR_USER = 1
 }	t_error_types;
 
-typedef struct global {
+typedef struct guests {
 	pthread_t	*thread_id;
 	int			nbr_of_philo;
 	int			fasting_time;
 	int			eating_time;
 	int			sleep_time;
 	int			max_meals;
-}	t_global;
+	pthread_t	id;
+}	t_guests;
 
 typedef struct philo {
 	int				number;
 	pthread_mutex_t	fork;
 	struct philo	*next;
 }	t_philo;
-
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~ COLORS ~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 # define CGRAY     "\x1b[30m"
@@ -59,7 +61,7 @@ typedef struct philo {
 # define CRESET   "\x1b[0m"
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~ INITIALIZER ~~~~~~~~~~~~~~~~~~~~~~~~~~ */
-void	save_user_input(t_global *global, int arg_count, char **arg_list);
+void	save_user_input(t_guests *global, int arg_count, char **arg_list);
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~ CHECKERS ~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 int		valid_user_input(int arg_count, char **arg_list);
@@ -71,14 +73,16 @@ int		error_msg(char *type, char *msg, int code);
 int		err_user(int arg_count);
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~ DISPLAY ~~~~~~~~~~~~~~~~~~~~~~~~~~ */
-void	display(t_global global);
+void	display(t_guests data);
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~ LIBRARY ~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 long	ft_atoi(const char *str);
 
 
+t_philo	*init_philo(t_guests *data);
 t_philo	*add_philo(t_philo **last, int content);
-void	delete_all_philo(t_philo **last);
-void	printlist(t_philo **last);
+void	del_list(t_philo **last);
+void	print_list(t_philo **last);
+
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: arurangi <arurangi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/05 10:24:21 by arurangi          #+#    #+#             */
-/*   Updated: 2023/04/06 13:27:17 by arurangi         ###   ########.fr       */
+/*   Updated: 2023/04/10 11:56:13 by arurangi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,11 @@
 
 #include "../includes/philo.h"
 
-void	display(t_global global)
+void	display(t_guests data)
 {
-	printf("Number of philosophers = %i\n", global.nbr_of_philo);
-	printf("Fasting time = %i\n", global.fasting_time);
-	printf("Eating time = %i\n", global.eating_time);
-	printf("Sleep time = %i\n", global.sleep_time);
-	printf("Max meals = %i\n", global.max_meals);
+	printf("Number of philosophers = %i\n", data.nbr_of_philo);
+	printf("Fasting time = %i\n", data.fasting_time);
+	printf("Eating time = %i\n", data.eating_time);
+	printf("Sleep time = %i\n", data.sleep_time);
+	printf("Max meals = %i\n", data.max_meals);
 }
