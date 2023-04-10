@@ -6,7 +6,7 @@
 /*   By: arurangi <arurangi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 07:24:28 by Arsene            #+#    #+#             */
-/*   Updated: 2023/04/10 14:35:34 by arurangi         ###   ########.fr       */
+/*   Updated: 2023/04/10 15:36:18 by arurangi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <pthread.h>
+# include <sys/time.h>
 
 # define ARG_ERROR 0
 # define ARG_SUCCESS 1
@@ -33,13 +34,14 @@ typedef	enum e_error_types {
 }	t_error_types;
 
 typedef struct s_guests {
-	pthread_t	*thread_id;
-	int			nbr_of_philo;
-	int			fasting_time;
-	int			eating_time;
-	int			sleep_time;
-	int			max_meals;
-	int			dead;
+	pthread_t		*thread_id;
+	int				nbr_of_philo;
+	int				fasting_time;
+	int				eating_time;
+	int				sleep_time;
+	int				max_meals;
+	int				dead;
+	pthread_mutex_t	lock;
 }	t_guests;
 
 typedef struct s_philo {
