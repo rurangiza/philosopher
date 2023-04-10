@@ -6,7 +6,7 @@
 /*   By: arurangi <arurangi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 13:28:06 by arurangi          #+#    #+#             */
-/*   Updated: 2023/04/10 12:03:05 by arurangi         ###   ########.fr       */
+/*   Updated: 2023/04/10 14:33:34 by arurangi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ t_philo	*init_philo(t_guests *data)
 	while (index < data->nbr_of_philo)
 	{
 		add_philo(&last, index+1);
+		pthread_mutex_init(&last->fork, NULL);
 		index++;
 	}
 	return (last);
