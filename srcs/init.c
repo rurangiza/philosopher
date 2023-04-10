@@ -6,13 +6,13 @@
 /*   By: arurangi <arurangi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 13:28:06 by arurangi          #+#    #+#             */
-/*   Updated: 2023/04/06 14:33:53 by arurangi         ###   ########.fr       */
+/*   Updated: 2023/04/10 09:54:14 by arurangi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
 
-void	store_input(t_global *global, int arg_count, char **arg_list)
+void	save_user_input(t_global *global, int arg_count, char **arg_list)
 {
 	global->nbr_of_philo = ft_atoi(arg_list[1]);
 	global->fasting_time = ft_atoi(arg_list[2]);

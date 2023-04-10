@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Arsene <Arsene@student.42.fr>              +#+  +:+       +#+        */
+/*   By: arurangi <arurangi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 07:24:28 by Arsene            #+#    #+#             */
-/*   Updated: 2023/04/07 16:45:40 by Arsene           ###   ########.fr       */
+/*   Updated: 2023/04/10 10:57:52 by arurangi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 
 # include <stdio.h>
 # include <unistd.h>
-# include <stdio.h>
 # include <stdlib.h>
 # include <pthread.h>
 
@@ -40,6 +39,13 @@ typedef struct global {
 	int			max_meals;
 }	t_global;
 
+typedef struct philo {
+	int				number;
+	pthread_mutex_t	fork;
+	struct philo	*next;
+}	t_philo;
+
+
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~ COLORS ~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 # define CGRAY     "\x1b[30m"
 # define CRED     "\x1b[31m"
@@ -53,7 +59,7 @@ typedef struct global {
 # define CRESET   "\x1b[0m"
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~ INITIALIZER ~~~~~~~~~~~~~~~~~~~~~~~~~~ */
-void	store_input(t_global *global, int arg_count, char **arg_list);
+void	save_user_input(t_global *global, int arg_count, char **arg_list);
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~ CHECKERS ~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 int		valid_user_input(int arg_count, char **arg_list);
@@ -70,5 +76,9 @@ void	display(t_global global);
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~ LIBRARY ~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 long	ft_atoi(const char *str);
 
+
+t_philo	*add_philo(t_philo **last, int content);
+void	delete_all_philo(t_philo **last);
+void	printlist(t_philo **last);
 
 #endif
