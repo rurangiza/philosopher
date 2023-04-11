@@ -6,7 +6,7 @@
 /*   By: arurangi <arurangi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 07:24:28 by Arsene            #+#    #+#             */
-/*   Updated: 2023/04/10 15:36:18 by arurangi         ###   ########.fr       */
+/*   Updated: 2023/04/11 17:10:21 by arurangi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,10 @@ typedef struct s_philo {
 	int				number;
 	pthread_mutex_t	fork;
 	pthread_t		id;
+	t_guests		*data;
 	struct s_philo	*next;
 }	t_philo;
+
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~ COLORS ~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 # define CGRAY     "\x1b[30m"
@@ -87,5 +89,7 @@ t_philo	*add_philo(t_philo **last, int content);
 void	del_list(t_philo **last);
 void	print_list(t_philo **last);
 
+
+void	*routine(void *philo);
 
 #endif

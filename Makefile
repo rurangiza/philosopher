@@ -6,7 +6,7 @@
 #    By: arurangi <arurangi@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/04 07:24:25 by Arsene            #+#    #+#              #
-#    Updated: 2023/04/10 10:55:37 by arurangi         ###   ########.fr        #
+#    Updated: 2023/04/11 16:29:43 by arurangi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,6 +41,7 @@ SRC_FILES	=	$(SRC_FOLDER)main.c \
 				$(SRC_FOLDER)init.c \
 				$(SRC_FOLDER)library.c \
 				$(SRC_FOLDER)linkedlist.c \
+				$(SRC_FOLDER)routine.c \
 
 # ~~~~~~~~~ OBJECT FILES ~~~~~~~~~~~ 
 
