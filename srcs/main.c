@@ -6,7 +6,7 @@
 /*   By: arurangi <arurangi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 07:24:13 by Arsene            #+#    #+#             */
-/*   Updated: 2023/04/11 17:10:42 by arurangi         ###   ########.fr       */
+/*   Updated: 2023/04/12 11:46:17 by arurangi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,35 +20,37 @@
 
 int	main(int arg_count, char **arg_list)
 {
-	t_guests	data;
-	t_philo		*tail;
-	t_philo		*head;
+	t_common	shared_data;
+	t_uniq		*tail;
+	t_uniq		*head;
 	int			status;
-	pthread_t	*id;
 
 	/* CHECKER
-	** - Description : check for valid user input
+	** - Description : check for valtid user input
 	*/
 	if (!valid_user_input(arg_count, arg_list))
 		return (EXIT_FAILURE);
 
-	/* INIT
+	/* INITIALIZER
 	** - Description : initialize the structures (philo and guests)
 	*/
-	save_user_input(&data, arg_count, arg_list);
-	tail = init_philo(&data);
-	id = malloc(data.nbr_of_philo * sizeof(pthread_t));
+	save_user_input(&shared_data, arg_count, arg_list);
+	tail = init_philo(&shared_data);
+	//tid = malloc(shared_data.nbr_of_philo * sizeof(pthread_t)); // add protection
 
 	/* CREATE
 	** - Description : create the threads for each philo
 	*/
+	counter = 0;
+	pthread_mutex_init(&lock, NULL);
 	head = tail->next;
-	for (int i = 0; i < data.nbr_of_philo; i++)
+	for (int i = 0; i < shared_data.nbr_of_philo; i++)
 	{
-		status = pthread_create(&id[i], NULL, &routine, (void *) head);
+		status = pthread_create(&head->tid, NULL, &start_routine, (void *) head);
 		if (status > 0)
-			return (error_msg("pthread_create", "couldn't create thread", EXIT_FAILURE));
-		usleep(100000);
+			return (error_msg("pthread_create", "can't create thread", EXIT_FAILURE));
+		printf("Main: Creation du thread [%d]\n", head->number);
+		//usleep(1000);
 		head = head->next;
 	}
 
@@ -65,12 +67,17 @@ int	main(int arg_count, char **arg_list)
 	** - Description : wait for the thrads to finish their tasks
 	*/
 	head = tail->next;
-	for (int j = 0; j < data.nbr_of_philo; j++)
+	for (int j = 0; j < shared_data.nbr_of_philo; j++)
 	{
-		status = pthread_join(id[j], NULL);
+		status = pthread_join(head->tid, NULL);
 		if (status > 0)
-			return (error_msg("pthread_join", "couldn't wait for thread", EXIT_FAILURE));
+			return (error_msg("pthread_join", "can't wait for thread", EXIT_FAILURE));
 		head = head->next;
 	}
+
+	/* DISPLAY
+	** - Description : show results
+	*/
+	printf("Counter = %d\n", counter);
 	return (EXIT_SUCCESS);
 }

@@ -6,7 +6,7 @@
 #    By: arurangi <arurangi@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/04 07:24:25 by Arsene            #+#    #+#              #
-#    Updated: 2023/04/11 16:29:43 by arurangi         ###   ########.fr        #
+#    Updated: 2023/04/12 11:54:44 by arurangi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,9 +15,10 @@ NAME		=	philo
 
 COMPILER	=	gcc
 
-FLAGS		=	-Wall -Werror -Wextra $(LINK_OPTION)
-SANITIZER	=	-fsanitize=address
+FLAGS		=	-Wall -Werror -Wextra $(LINK_OPTION) $(SANITIZE) $(SANITHREAD)
 LINK_OPTION	=	-pthread
+SANITIZER	=	-fsanitize=address
+SANITHREAD	=	-fsanitize=thread
 
 # ~~~~~~~~ COLOR  ~~~~~~~~~~ #
 CLR_BLACK   = \033[0;30m

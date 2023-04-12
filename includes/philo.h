@@ -6,7 +6,7 @@
 /*   By: arurangi <arurangi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 07:24:28 by Arsene            #+#    #+#             */
-/*   Updated: 2023/04/11 17:10:21 by arurangi         ###   ########.fr       */
+/*   Updated: 2023/04/12 11:44:19 by arurangi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,13 +27,16 @@
 
 # define MODE 0
 
+unsigned int	counter;
+pthread_mutex_t	lock;
+
 /* ~~~~~~~~~~~~~~~~~~~~~~~ STRUCTURES ~~~~~~~~~~~~~~~~~~~~~~~ */
 
 typedef	enum e_error_types {
 	ERR_USER = 1
 }	t_error_types;
 
-typedef struct s_guests {
+typedef struct s_common {
 	pthread_t		*thread_id;
 	int				nbr_of_philo;
 	int				fasting_time;
@@ -42,15 +45,15 @@ typedef struct s_guests {
 	int				max_meals;
 	int				dead;
 	pthread_mutex_t	lock;
-}	t_guests;
+}	t_common;
 
-typedef struct s_philo {
+typedef struct s_uniq {
+	pthread_t		tid;
 	int				number;
 	pthread_mutex_t	fork;
-	pthread_t		id;
-	t_guests		*data;
-	struct s_philo	*next;
-}	t_philo;
+	struct s_uniq	*next;
+	t_common		*shared_data;
+}	t_uniq;
 
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~ COLORS ~~~~~~~~~~~~~~~~~~~~~~~~~~ */
@@ -65,8 +68,11 @@ typedef struct s_philo {
 # define CBOLD   "\x1b[1m"
 # define CRESET   "\x1b[0m"
 
+# define NC	"\e[0m"
+# define YELLOW	"\e[1;33m"
+
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~ INITIALIZER ~~~~~~~~~~~~~~~~~~~~~~~~~~ */
-void	save_user_input(t_guests *global, int arg_count, char **arg_list);
+void	save_user_input(t_common *global, int arg_count, char **arg_list);
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~ CHECKERS ~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 int		valid_user_input(int arg_count, char **arg_list);
@@ -78,18 +84,18 @@ int		error_msg(char *type, char *msg, int code);
 int		err_user(int arg_count);
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~ DISPLAY ~~~~~~~~~~~~~~~~~~~~~~~~~~ */
-void	display(t_guests data);
+void	display(t_common data);
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~ LIBRARY ~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 long	ft_atoi(const char *str);
 
 
-t_philo	*init_philo(t_guests *data);
-t_philo	*add_philo(t_philo **last, int content);
-void	del_list(t_philo **last);
-void	print_list(t_philo **last);
+t_uniq	*init_philo(t_common *data);
+t_uniq	*add_philo(t_uniq **last, int content);
+void	del_list(t_uniq **last);
+void	print_list(t_uniq **last);
 
 
-void	*routine(void *philo);
+void	*start_routine(void *data);
 
 #endif

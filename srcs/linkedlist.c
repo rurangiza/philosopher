@@ -6,7 +6,7 @@
 /*   By: arurangi <arurangi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/10 09:54:47 by arurangi          #+#    #+#             */
-/*   Updated: 2023/04/10 11:48:06 by arurangi         ###   ########.fr       */
+/*   Updated: 2023/04/12 11:34:11 by arurangi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,11 @@
 int count = 1;
 
 // add node ad the end
-t_philo	*add_philo(t_philo **last, int content)
+t_uniq	*add_philo(t_uniq **last, int content)
 {
-	t_philo	*newnode;
+	t_uniq	*newnode;
 
-	newnode = malloc(sizeof(t_philo));
+	newnode = malloc(sizeof(t_uniq));
 	if (!newnode)
 		return (0);
 	newnode->number = content;
@@ -38,9 +38,9 @@ t_philo	*add_philo(t_philo **last, int content)
 }
 
 // delete all nodes
-void	del_list(t_philo **last)
+void	del_list(t_uniq **last)
 {
-	t_philo	*tmp;
+	t_uniq	*tmp;
 
 	if (!*last)
 		return ;
@@ -54,9 +54,9 @@ void	del_list(t_philo **last)
 	*last = 0;
 }
 
-void	print_list(t_philo **last)
+void	print_list(t_uniq **last)
 {
-	t_philo	*tmp;
+	t_uniq	*tmp;
 
 	if (!*last)
 		return ;
