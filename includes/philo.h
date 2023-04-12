@@ -6,7 +6,7 @@
 /*   By: arurangi <arurangi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 07:24:28 by Arsene            #+#    #+#             */
-/*   Updated: 2023/04/12 11:44:19 by arurangi         ###   ########.fr       */
+/*   Updated: 2023/04/12 13:52:21 by arurangi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,13 +37,11 @@ typedef	enum e_error_types {
 }	t_error_types;
 
 typedef struct s_common {
-	pthread_t		*thread_id;
 	int				nbr_of_philo;
-	int				fasting_time;
-	int				eating_time;
-	int				sleep_time;
-	int				max_meals;
-	int				dead;
+	int				time_to_die;
+	int				time_to_eat;
+	int				time_to_sleep;
+	int				nbr_of_meals;
 	pthread_mutex_t	lock;
 }	t_common;
 

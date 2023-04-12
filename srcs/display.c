@@ -6,7 +6,7 @@
 /*   By: arurangi <arurangi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/05 10:24:21 by arurangi          #+#    #+#             */
-/*   Updated: 2023/04/12 11:22:53 by arurangi         ###   ########.fr       */
+/*   Updated: 2023/04/12 17:04:12 by arurangi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,11 @@
 
 void	display(t_common data)
 {
-	printf("Number of philosophers = %i\n", data.nbr_of_philo);
-	printf("Fasting time = %i\n", data.fasting_time);
-	printf("Eating time = %i\n", data.eating_time);
-	printf("Sleep time = %i\n", data.sleep_time);
-	printf("Max meals = %i\n", data.max_meals);
+	printf("\n* *****************************\n");
+	printf("* Number of philosophers = %i\n", data.nbr_of_philo);
+	printf("* time_to_die : %i\n", data.time_to_die);
+	printf("* time_to_eat = %i\n", data.time_to_eat);
+	printf("* time_to_sleep = %i\n", data.time_to_sleep);
+	printf("* Max meals = %i\n", data.nbr_of_meals);
+	printf("* *****************************\n\n");
 }
