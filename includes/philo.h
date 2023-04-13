@@ -6,7 +6,7 @@
 /*   By: arurangi <arurangi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 07:24:28 by Arsene            #+#    #+#             */
-/*   Updated: 2023/04/12 13:52:21 by arurangi         ###   ########.fr       */
+/*   Updated: 2023/04/13 12:01:30 by arurangi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,12 +43,14 @@ typedef struct s_common {
 	int				time_to_sleep;
 	int				nbr_of_meals;
 	pthread_mutex_t	lock;
+	int				nbr_of_deaths;
 }	t_common;
 
 typedef struct s_uniq {
 	pthread_t		tid;
-	int				number;
+	unsigned int	number;
 	pthread_mutex_t	fork;
+	long		time_of_last_meal;
 	struct s_uniq	*next;
 	t_common		*shared_data;
 }	t_uniq;
@@ -95,5 +97,7 @@ void	print_list(t_uniq **last);
 
 
 void	*start_routine(void *data);
+
+long	ft_gettime(void);
 
 #endif

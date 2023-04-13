@@ -6,7 +6,7 @@
 /*   By: arurangi <arurangi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 13:28:06 by arurangi          #+#    #+#             */
-/*   Updated: 2023/04/12 17:00:19 by arurangi         ###   ########.fr       */
+/*   Updated: 2023/04/13 10:47:46 by arurangi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ void	save_user_input(t_common *data, int arg_count, char **arg_list)
 		data->nbr_of_meals = ft_atoi(arg_list[5]);
 	else
 		data->nbr_of_meals = -1;
+	data->nbr_of_deaths = 0;
 	pthread_mutex_init(&data->lock, NULL);
 }
 
