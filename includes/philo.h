@@ -6,7 +6,7 @@
 /*   By: arurangi <arurangi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 07:24:28 by Arsene            #+#    #+#             */
-/*   Updated: 2023/04/13 12:01:30 by arurangi         ###   ########.fr       */
+/*   Updated: 2023/04/13 14:23:32 by arurangi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,6 @@
 
 # define MODE 0
 
-unsigned int	counter;
-pthread_mutex_t	lock;
-
 /* ~~~~~~~~~~~~~~~~~~~~~~~ STRUCTURES ~~~~~~~~~~~~~~~~~~~~~~~ */
 
 typedef	enum e_error_types {
@@ -38,19 +35,19 @@ typedef	enum e_error_types {
 
 typedef struct s_common {
 	int				nbr_of_philo;
-	int				time_to_die;
-	int				time_to_eat;
-	int				time_to_sleep;
 	int				nbr_of_meals;
-	pthread_mutex_t	lock;
 	int				nbr_of_deaths;
+	pthread_mutex_t	lock;
 }	t_common;
 
 typedef struct s_uniq {
 	pthread_t		tid;
 	unsigned int	number;
+	unsigned int	time_to_die;
+	unsigned int	time_to_eat;
+	unsigned int	time_to_sleep;
+	long			time_of_last_meal;
 	pthread_mutex_t	fork;
-	long		time_of_last_meal;
 	struct s_uniq	*next;
 	t_common		*shared_data;
 }	t_uniq;
@@ -84,20 +81,26 @@ int		error_msg(char *type, char *msg, int code);
 int		err_user(int arg_count);
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~ DISPLAY ~~~~~~~~~~~~~~~~~~~~~~~~~~ */
-void	display(t_common data);
+void	display(t_common *data);
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~ LIBRARY ~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 long	ft_atoi(const char *str);
 
 
-t_uniq	*init_philo(t_common *data);
-t_uniq	*add_philo(t_uniq **last, int content);
+//t_uniq	*init_philo(t_common *data);
+t_uniq	*add_node(t_uniq **last);
 void	del_list(t_uniq **last);
 void	print_list(t_uniq **last);
 
 
 void	*start_routine(void *data);
+t_uniq	*init_data(int arg_count, char **arg_list);
+
+void	is_eating(t_uniq *philo);
+void	is_sleeping(t_uniq *philo);
+void	is_thinking(t_uniq *philo);
 
 long	ft_gettime(void);
+
 
 #endif

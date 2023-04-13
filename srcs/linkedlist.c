@@ -6,7 +6,7 @@
 /*   By: arurangi <arurangi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/10 09:54:47 by arurangi          #+#    #+#             */
-/*   Updated: 2023/04/12 11:34:11 by arurangi         ###   ########.fr       */
+/*   Updated: 2023/04/13 14:14:13 by arurangi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,13 @@
 int count = 1;
 
 // add node ad the end
-t_uniq	*add_philo(t_uniq **last, int content)
+t_uniq	*add_node(t_uniq **last)
 {
 	t_uniq	*newnode;
 
 	newnode = malloc(sizeof(t_uniq));
 	if (!newnode)
 		return (0);
-	newnode->number = content;
 	if (!*last)
 	{
 		newnode->next = newnode;

@@ -6,7 +6,7 @@
 /*   By: arurangi <arurangi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 07:24:13 by Arsene            #+#    #+#             */
-/*   Updated: 2023/04/12 17:04:21 by arurangi         ###   ########.fr       */
+/*   Updated: 2023/04/13 14:55:17 by arurangi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 
 int	main(int arg_count, char **arg_list)
 {
-	t_common	shared_data;
+	t_common	*shared_data;
 	t_uniq		*tail;
 	t_uniq		*head;
 	//int			status;
@@ -34,19 +34,19 @@ int	main(int arg_count, char **arg_list)
 	/* ************************** INITIALIZER *******************************
 	** - Description : initialize the structures (philo and guests)
 	*/
-	save_user_input(&shared_data, arg_count, arg_list);
-	tail = init_philo(&shared_data);
+	tail = init_data(arg_count, arg_list);
+	head = tail->next;
+	shared_data = tail->shared_data;
 
-	display(shared_data);
+	//display(shared_data);
 
 	/* ***************************** CREATE ********************************
 	** - Description : create the threads for each philo
 	*/
 	//printf(CBOLD CCYAN"~~~~~ %d meals ~~~~~~\n"CRESET, shared_data.nbr_of_meals);
-	pthread_mutex_init(&lock, NULL);
-	head = tail->next;
-	for (int i = 0; i < shared_data.nbr_of_philo; i++)
+	for (int i = 0; i < shared_data->nbr_of_philo; i++)
 	{
+		printf("Creatign philo #%d\n", head->number);
 		pthread_create(&head->tid, NULL, &start_routine, (void *) head);
 		head = head->next;
 	}
@@ -63,7 +63,7 @@ int	main(int arg_count, char **arg_list)
 	** - Description : wait for the thrads to finish their tasks
 	*/
 	head = tail->next;
-	for (int j = 0; j < shared_data.nbr_of_philo; j++)
+	for (int j = 0; j < shared_data->nbr_of_philo; j++)
 	{
 		pthread_join(head->tid, NULL);
 		head = head->next;
@@ -77,9 +77,9 @@ int	main(int arg_count, char **arg_list)
 	** - mutex  : lock, forks
 	** - malloc :  
 	*/
-	pthread_mutex_destroy(&shared_data.lock);
+	pthread_mutex_destroy(&shared_data->lock);
 	head = tail->next;
-	for (int i = 0; i < shared_data.nbr_of_philo; i++)
+	for (int i = 0; i < shared_data->nbr_of_philo; i++)
 		pthread_mutex_destroy(&head->fork);
 	return (EXIT_SUCCESS);
 }
