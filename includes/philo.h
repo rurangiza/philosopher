@@ -6,7 +6,7 @@
 /*   By: arurangi <arurangi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 07:24:28 by Arsene            #+#    #+#             */
-/*   Updated: 2023/04/13 14:23:32 by arurangi         ###   ########.fr       */
+/*   Updated: 2023/04/14 11:10:07 by arurangi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,22 +85,29 @@ void	display(t_common *data);
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~ LIBRARY ~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 long	ft_atoi(const char *str);
+int		ft_strncmp(const char *s1, const char *s2, size_t n);
 
 
 //t_uniq	*init_philo(t_common *data);
-t_uniq	*add_node(t_uniq **last);
+t_uniq	*add_node_to_cllist(t_uniq **last);
 void	del_list(t_uniq **last);
 void	print_list(t_uniq **last);
 
 
-void	*start_routine(void *data);
-t_uniq	*init_data(int arg_count, char **arg_list);
+void		*start_routine(void *data);
+t_uniq		*init_data(int arg_count, char **arg_list);
+t_common	*init_shared_data(int arg_count, char **arg_list);
+void		init_philo(t_uniq *philo, t_common *shared_data,
+				char **arg_list, int counter);
 
-void	is_eating(t_uniq *philo);
-void	is_sleeping(t_uniq *philo);
-void	is_thinking(t_uniq *philo);
+void	start_eating(t_uniq *philo);
+void	start_sleeping(t_uniq *philo);
+void	start_thinking(t_uniq *philo);
 
 long	ft_gettime(void);
 
+int		someone_died(t_uniq *philo);
+
+void	print_msg(int philo_number, char *msg);
 
 #endif

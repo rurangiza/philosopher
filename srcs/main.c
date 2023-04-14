@@ -6,7 +6,7 @@
 /*   By: arurangi <arurangi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 07:24:13 by Arsene            #+#    #+#             */
-/*   Updated: 2023/04/13 14:55:17 by arurangi         ###   ########.fr       */
+/*   Updated: 2023/04/14 11:32:27 by arurangi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ int	main(int arg_count, char **arg_list)
 	t_common	*shared_data;
 	t_uniq		*tail;
 	t_uniq		*head;
-	//int			status;
 
 	/* *************************** CHECKER **********************************
 	** - Description : check for valtid user input
@@ -46,8 +45,9 @@ int	main(int arg_count, char **arg_list)
 	//printf(CBOLD CCYAN"~~~~~ %d meals ~~~~~~\n"CRESET, shared_data.nbr_of_meals);
 	for (int i = 0; i < shared_data->nbr_of_philo; i++)
 	{
-		printf("Creatign philo #%d\n", head->number);
+		//printf("Creating philo #%d\n", head->number);
 		pthread_create(&head->tid, NULL, &start_routine, (void *) head);
+		usleep(100);
 		head = head->next;
 	}
 

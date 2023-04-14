@@ -6,7 +6,7 @@
 /*   By: arurangi <arurangi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/11 16:29:13 by arurangi          #+#    #+#             */
-/*   Updated: 2023/04/13 14:22:33 by arurangi         ###   ########.fr       */
+/*   Updated: 2023/04/14 11:39:49 by arurangi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,65 +31,87 @@
 void	*start_routine(void *data)
 {
 	t_uniq	*philo = (t_uniq *) data;
-	//int		remaining_meals;
-
-	// printf("Philo [%d] starts eating\n",
-	// 		philo->number, philo->shared_data->nbr_of_meals);
-	// pthread_mutex_lock(&philo->shared_data->lock);
-	// remaining_meals = philo->shared_data->nbr_of_meals;
-	// pthread_mutex_unlock(&philo->shared_data->lock);
+	int		meal_counter;
+	
 	
 	pthread_mutex_lock(&philo->shared_data->lock);
-	int index = philo->shared_data->nbr_of_meals;
-	pthread_mutex_unlock(&philo->shared_data->lock);
-	
-	// Save time: beginning of simulation
-	philo->time_of_last_meal = ft_gettime(); //printf("Time %ld sec\n", philo->time_of_last_meal);
-	
-	while (index > 0)
+	if (philo->shared_data->nbr_of_meals != -1)
 	{
-		/* Check for deaths */
-		if (philo->shared_data->nbr_of_deaths > 0)
-			exit(1);
-		/* Take forks & eat */
-		is_eating(philo);
-		is_sleeping(philo);
-		is_thinking(philo);
-		index--;
+		meal_counter = philo->shared_data->nbr_of_meals;
+		pthread_mutex_unlock(&philo->shared_data->lock);
+
+		philo->time_of_last_meal = ft_gettime(); // Save time: beginning of simulation
+		while (meal_counter > 0)
+		{
+			if (someone_died(philo))
+				exit(1);
+			start_eating(philo);
+			start_sleeping(philo);
+			start_thinking(philo);
+			meal_counter--;
+		}
 	}
-
-	// while (1)
-	// {
-	// }
-	// pthread_mutex_lock(&philo->shared_data->lock);
-	// printf("Thread [%d] : stopped at %d\n",
-	// 		philo->number, philo->shared_data->nbr_of_meals);
-	// pthread_mutex_unlock(&philo->shared_data->lock);
-
-
+	else
+	{
+		while (TRUE)
+		{
+			if (someone_died(philo) > 0)
+				exit(1);
+			start_eating(philo);
+			start_sleeping(philo);
+			start_thinking(philo);
+		}
+	}
+	
 	return (NULL);
 }
 
-void	is_eating(t_uniq *philo)
+int	someone_died(t_uniq *philo)
+{
+	/* Other philo */ // Critical!!
+	pthread_mutex_lock(&philo->shared_data->lock);
+	if (philo->shared_data->nbr_of_deaths > 0)
+	{
+		pthread_mutex_unlock(&philo->shared_data->lock);
+		print_msg(philo->number, "other died");
+		return (1);
+	}
+	pthread_mutex_unlock(&philo->shared_data->lock);
+	
+	/* Current philo */
+	if (ft_gettime() - philo->time_of_last_meal > philo->time_to_die)
+	{
+		pthread_mutex_lock(&philo->shared_data->lock);
+		philo->shared_data->nbr_of_deaths++;
+		pthread_mutex_unlock(&philo->shared_data->lock);
+		print_msg(philo->number, "died");
+		return (1);
+	}
+	return (0);
+}
+
+void	start_eating(t_uniq *philo)
 {
 	pthread_mutex_lock(&philo->fork);
 	pthread_mutex_lock(&philo->next->fork);
-	printf(CGRAY"%ld\033[m philo #%d has taken the fork\n",
-				ft_gettime(), philo->number);
-	printf(CGRAY"%ld\033[m philo #%d is eating\n",
-				ft_gettime(), philo->number);
+
+	print_msg(philo->number, "has taken a fork");
+	print_msg(philo->number, "is eating");
 	usleep(philo->time_to_eat);
+
 	pthread_mutex_unlock(&philo->next->fork);
 	pthread_mutex_unlock(&philo->fork);
+
+	philo->time_of_last_meal = ft_gettime();
 }
 
-void	is_sleeping(t_uniq *philo)
+void	start_sleeping(t_uniq *philo)
 {
+	print_msg(philo->number, "is sleeping");
 	usleep(philo->time_to_sleep);
 }
 
-void	is_thinking(t_uniq *philo)
+void	start_thinking(t_uniq *philo)
 {
-	printf(CGRAY"%ld\033[m philo #%d is thinking\n",
-				ft_gettime(), philo->number);
+	print_msg(philo->number, "is thinking");
 }

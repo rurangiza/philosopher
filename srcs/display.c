@@ -6,7 +6,7 @@
 /*   By: arurangi <arurangi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/05 10:24:21 by arurangi          #+#    #+#             */
-/*   Updated: 2023/04/13 14:24:34 by arurangi         ###   ########.fr       */
+/*   Updated: 2023/04/14 11:41:15 by arurangi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,4 +22,28 @@ void	display(t_common *data)
 	printf("* Number of philosophers = %i\n", data->nbr_of_philo);
 	printf("* Max meals = %i\n", data->nbr_of_meals);
 	printf("* *****************************\n\n");
+}
+
+void	print_msg(int philo_number, char *msg)
+{
+	char	*color;
+	char	*symbol;
+	
+	if (ft_strncmp("died", msg, 4) == 0)
+	{
+		color = CRED;
+		symbol = "✘";
+	}
+	else if (ft_strncmp("other died", msg, 10) == 0)
+	{
+		color = CYELLOW;
+		symbol = "⦿";
+	}
+	else
+	{
+		color = CGREEN;
+		symbol = "⦿";
+	}
+	printf(CGRAY"%s%s\033[0m %ld\033[m philo #%d %s%s\033[0m\n",
+		color, symbol, ft_gettime(), philo_number, color, msg);
 }
