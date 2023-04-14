@@ -6,7 +6,7 @@
 #    By: arurangi <arurangi@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/04 07:24:25 by Arsene            #+#    #+#              #
-#    Updated: 2023/04/13 11:42:53 by arurangi         ###   ########.fr        #
+#    Updated: 2023/04/14 14:09:45 by arurangi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -72,4 +72,9 @@ re:		fclean all
 run:
 	@./$(NAME)
 
-.PHONY:	all clean fclean re
+git:
+	git add .
+	git commit -m "$m"
+	git push
+
+.PHONY:	all clean fclean re git

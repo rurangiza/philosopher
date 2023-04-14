@@ -6,7 +6,7 @@
 /*   By: arurangi <arurangi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 07:24:28 by Arsene            #+#    #+#             */
-/*   Updated: 2023/04/14 11:10:07 by arurangi         ###   ########.fr       */
+/*   Updated: 2023/04/14 14:55:57 by arurangi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ typedef struct s_common {
 	int				nbr_of_philo;
 	int				nbr_of_meals;
 	int				nbr_of_deaths;
+	long			start_time;
 	pthread_mutex_t	lock;
 }	t_common;
 
@@ -47,6 +48,7 @@ typedef struct s_uniq {
 	unsigned int	time_to_eat;
 	unsigned int	time_to_sleep;
 	long			time_of_last_meal;
+	long			start_time;
 	pthread_mutex_t	fork;
 	struct s_uniq	*next;
 	t_common		*shared_data;
@@ -104,10 +106,12 @@ void	start_eating(t_uniq *philo);
 void	start_sleeping(t_uniq *philo);
 void	start_thinking(t_uniq *philo);
 
-long	ft_gettime(void);
+long	ft_get_time(void);
+long	ft_calc_timestamp(t_uniq *philo);
 
 int		someone_died(t_uniq *philo);
 
-void	print_msg(int philo_number, char *msg);
+void	print_msg(t_uniq *philo, char *msg);
+void	print_hud(void);
 
 #endif

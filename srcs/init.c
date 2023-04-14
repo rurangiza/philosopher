@@ -6,7 +6,7 @@
 /*   By: arurangi <arurangi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 13:28:06 by arurangi          #+#    #+#             */
-/*   Updated: 2023/04/14 09:59:04 by arurangi         ###   ########.fr       */
+/*   Updated: 2023/04/14 14:32:25 by arurangi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ void	init_philo(t_uniq *philo, t_common *shared_data, char **arg_list, int count
 	philo->time_to_eat = ft_atoi(arg_list[3]);
 	philo->time_to_sleep = ft_atoi(arg_list[4]);
 	pthread_mutex_init(&philo->fork, NULL);
+	philo->start_time = shared_data->start_time;
 	philo->shared_data = shared_data;
 }
 
@@ -55,6 +56,7 @@ t_common	*init_shared_data(int arg_count, char **arg_list)
 	else
 		data->nbr_of_meals = -1;
 	data->nbr_of_deaths = 0;
+	data->start_time = ft_get_time();
 	pthread_mutex_init(&data->lock, NULL);
 	return (data);
 }

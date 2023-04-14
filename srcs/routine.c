@@ -6,7 +6,7 @@
 /*   By: arurangi <arurangi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/11 16:29:13 by arurangi          #+#    #+#             */
-/*   Updated: 2023/04/14 11:39:49 by arurangi         ###   ########.fr       */
+/*   Updated: 2023/04/14 15:47:56 by arurangi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@
 ** - philo : a structure containing all useful informations
 ** Return
 */
-
 
 /*
  * stay alive & think
@@ -32,15 +31,14 @@ void	*start_routine(void *data)
 {
 	t_uniq	*philo = (t_uniq *) data;
 	int		meal_counter;
-	
-	
+
+	philo->time_of_last_meal = ft_get_time(); // Save time: beginning of simulation
 	pthread_mutex_lock(&philo->shared_data->lock);
 	if (philo->shared_data->nbr_of_meals != -1)
 	{
 		meal_counter = philo->shared_data->nbr_of_meals;
 		pthread_mutex_unlock(&philo->shared_data->lock);
 
-		philo->time_of_last_meal = ft_gettime(); // Save time: beginning of simulation
 		while (meal_counter > 0)
 		{
 			if (someone_died(philo))
@@ -53,6 +51,7 @@ void	*start_routine(void *data)
 	}
 	else
 	{
+		pthread_mutex_unlock(&philo->shared_data->lock);
 		while (TRUE)
 		{
 			if (someone_died(philo) > 0)
@@ -73,18 +72,18 @@ int	someone_died(t_uniq *philo)
 	if (philo->shared_data->nbr_of_deaths > 0)
 	{
 		pthread_mutex_unlock(&philo->shared_data->lock);
-		print_msg(philo->number, "other died");
+		//print_msg(philo, "other died");
 		return (1);
 	}
 	pthread_mutex_unlock(&philo->shared_data->lock);
 	
 	/* Current philo */
-	if (ft_gettime() - philo->time_of_last_meal > philo->time_to_die)
+	if (ft_get_time() - philo->time_of_last_meal > philo->time_to_die)
 	{
 		pthread_mutex_lock(&philo->shared_data->lock);
 		philo->shared_data->nbr_of_deaths++;
 		pthread_mutex_unlock(&philo->shared_data->lock);
-		print_msg(philo->number, "died");
+		print_msg(philo, "died");
 		return (1);
 	}
 	return (0);
@@ -93,25 +92,27 @@ int	someone_died(t_uniq *philo)
 void	start_eating(t_uniq *philo)
 {
 	pthread_mutex_lock(&philo->fork);
-	pthread_mutex_lock(&philo->next->fork);
+	print_msg(philo, "has taken a fork [RIGHT]");
 
-	print_msg(philo->number, "has taken a fork");
-	print_msg(philo->number, "is eating");
+	pthread_mutex_lock(&philo->next->fork);
+	print_msg(philo, "has taken a fork [LEFT]");
+
+	print_msg(philo, "is eating");
 	usleep(philo->time_to_eat);
 
 	pthread_mutex_unlock(&philo->next->fork);
 	pthread_mutex_unlock(&philo->fork);
 
-	philo->time_of_last_meal = ft_gettime();
+	philo->time_of_last_meal = ft_get_time();
 }
 
 void	start_sleeping(t_uniq *philo)
 {
-	print_msg(philo->number, "is sleeping");
+	print_msg(philo, "is sleeping");
 	usleep(philo->time_to_sleep);
 }
 
 void	start_thinking(t_uniq *philo)
 {
-	print_msg(philo->number, "is thinking");
+	print_msg(philo, "is thinking");
 }
