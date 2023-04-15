@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   routine.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arurangi <arurangi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: Arsene <Arsene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/11 16:29:13 by arurangi          #+#    #+#             */
-/*   Updated: 2023/04/14 15:47:56 by arurangi         ###   ########.fr       */
+/*   Updated: 2023/04/15 15:03:34 by Arsene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,9 +80,7 @@ int	someone_died(t_uniq *philo)
 	/* Current philo */
 	if (ft_get_time() - philo->time_of_last_meal > philo->time_to_die)
 	{
-		pthread_mutex_lock(&philo->shared_data->lock);
 		philo->shared_data->nbr_of_deaths++;
-		pthread_mutex_unlock(&philo->shared_data->lock);
 		print_msg(philo, "died");
 		return (1);
 	}

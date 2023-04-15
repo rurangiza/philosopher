@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   display.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arurangi <arurangi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: Arsene <Arsene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/05 10:24:21 by arurangi          #+#    #+#             */
-/*   Updated: 2023/04/14 15:23:51 by arurangi         ###   ########.fr       */
+/*   Updated: 2023/04/15 15:00:50 by Arsene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,30 +26,29 @@ void	display(t_common *data)
 
 void	print_msg(t_uniq *philo, char *msg)
 {
-	// char	*color;
-	// char	*symbol;
+	char	*color;
+	char	*symbol;
+	long	timestamp = ft_calc_timestamp(philo);
 
-	// if (ft_strncmp("died", msg, 4) == 0)
-	// {
-	// 	color = CRED;
-	// 	symbol = "✘";
-	// }
-	// else if (ft_strncmp("other died", msg, 10) == 0)
-	// {
-	// 	color = CYELLOW;
-	// 	symbol = "⦿";
-	// }
-	// else
-	// {
-	// 	color = CGREEN;
-	// 	symbol = "⦿";
-	// }
-
-	// printf(CGRAY"%s%s\033[0m %ld\033[m philo #%d %s%s\033[0m\n",
-	// 	color, symbol, ft_gettime(), philo_number, color, msg);
-	
-	printf("   %.7ld          #%d         %s\n",
-		ft_calc_timestamp(philo), philo->number, msg);
+	if (ft_strncmp("died", msg, 4) == 0)
+	{
+		color = CRED;
+		symbol = "✘";
+	}
+	else if (ft_strncmp("other died", msg, 10) == 0)
+	{
+		color = CYELLOW;
+		symbol = "⦿";
+	}
+	else
+	{
+		color = CGREEN;
+		symbol = "⦿";
+	}
+	printf(CGRAY"%s%s\033[0m %ld\033[m ms | philo #%.3d %s%s\033[0m\n",
+		color, symbol, timestamp, philo->number, color, msg);
+	// printf("   %.7ld          #%d         %s\n",
+	// 	ft_calc_timestamp(philo), philo->number, msg);
 }
 
 void	print_hud(void)
