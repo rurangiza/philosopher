@@ -6,7 +6,7 @@
 /*   By: Arsene <Arsene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/11 16:29:13 by arurangi          #+#    #+#             */
-/*   Updated: 2023/04/17 14:58:13 by Arsene           ###   ########.fr       */
+/*   Updated: 2023/04/17 18:11:44 by Arsene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,14 +100,23 @@ int	any_death(t_common *shared_data)
 
 void	start_eating(t_uniq *philo)
 {
-	pthread_mutex_lock(&philo->fork);
-	pthread_mutex_lock(&philo->next->fork);
-	if (someone_died(philo))
+	if (philo->number < philo->next->number)
+	{
+		pthread_mutex_lock(&philo->fork);
+		pthread_mutex_lock(&philo->next->fork);
+	}
+	else
+	{
+		pthread_mutex_lock(&philo->next->fork);
+		pthread_mutex_lock(&philo->fork);
+	}
+	if (any_death(philo->shared_data))
 	{
 		pthread_mutex_unlock(&philo->next->fork);
 		pthread_mutex_unlock(&philo->fork);
 		return ;
 	}
+
 	print_msg(philo, "has taken a fork [LEFT]");
 
 	print_msg(philo, "is eating");
