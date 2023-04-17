@@ -6,7 +6,7 @@
 /*   By: Arsene <Arsene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/11 16:29:13 by arurangi          #+#    #+#             */
-/*   Updated: 2023/04/15 15:03:34 by Arsene           ###   ########.fr       */
+/*   Updated: 2023/04/17 10:44:15 by Arsene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,11 +33,11 @@ void	*start_routine(void *data)
 	int		meal_counter;
 
 	philo->time_of_last_meal = ft_get_time(); // Save time: beginning of simulation
-	pthread_mutex_lock(&philo->shared_data->lock);
+	pthread_mutex_lock(&philo->shared_data->lock_meals);
 	if (philo->shared_data->nbr_of_meals != -1)
 	{
 		meal_counter = philo->shared_data->nbr_of_meals;
-		pthread_mutex_unlock(&philo->shared_data->lock);
+		pthread_mutex_unlock(&philo->shared_data->lock_meals);
 
 		while (meal_counter > 0)
 		{
@@ -51,7 +51,7 @@ void	*start_routine(void *data)
 	}
 	else
 	{
-		pthread_mutex_unlock(&philo->shared_data->lock);
+		pthread_mutex_unlock(&philo->shared_data->lock_meals);
 		while (TRUE)
 		{
 			if (someone_died(philo) > 0)
@@ -68,23 +68,22 @@ void	*start_routine(void *data)
 int	someone_died(t_uniq *philo)
 {
 	/* Other philo */ // Critical!!
-	pthread_mutex_lock(&philo->shared_data->lock);
+	pthread_mutex_lock(&philo->shared_data->lock_deaths);
 	if (philo->shared_data->nbr_of_deaths > 0)
 	{
-		pthread_mutex_unlock(&philo->shared_data->lock);
-		//print_msg(philo, "other died");
-		return (1);
+		pthread_mutex_unlock(&philo->shared_data->lock_deaths);
+		print_msg(philo, "other died");
+		return (TRUE);
 	}
-	pthread_mutex_unlock(&philo->shared_data->lock);
-	
-	/* Current philo */
-	if (ft_get_time() - philo->time_of_last_meal > philo->time_to_die)
+	else if (ft_get_time() - philo->time_of_last_meal > philo->time_to_die)
 	{
 		philo->shared_data->nbr_of_deaths++;
+		pthread_mutex_unlock(&philo->shared_data->lock_deaths);
 		print_msg(philo, "died");
-		return (1);
+		return (TRUE);
 	}
-	return (0);
+	pthread_mutex_unlock(&philo->shared_data->lock_deaths);
+	return (FALSE);
 }
 
 void	start_eating(t_uniq *philo)

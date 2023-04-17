@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arurangi <arurangi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: Arsene <Arsene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 07:24:28 by Arsene            #+#    #+#             */
-/*   Updated: 2023/04/14 14:55:57 by arurangi         ###   ########.fr       */
+/*   Updated: 2023/04/17 10:38:53 by Arsene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,9 @@ typedef struct s_common {
 	int				nbr_of_meals;
 	int				nbr_of_deaths;
 	long			start_time;
-	pthread_mutex_t	lock;
+	pthread_mutex_t	lock_meals;
+	pthread_mutex_t	lock_deaths;
+	pthread_mutex_t	lock_stdio;
 }	t_common;
 
 typedef struct s_uniq {
@@ -101,6 +103,9 @@ t_uniq		*init_data(int arg_count, char **arg_list);
 t_common	*init_shared_data(int arg_count, char **arg_list);
 void		init_philo(t_uniq *philo, t_common *shared_data,
 				char **arg_list, int counter);
+
+int		start_simulation(t_uniq *philo, t_common *shared_data);
+void	end_simulation(t_uniq *philo);
 
 void	start_eating(t_uniq *philo);
 void	start_sleeping(t_uniq *philo);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arurangi <arurangi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: Arsene <Arsene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 13:28:06 by arurangi          #+#    #+#             */
-/*   Updated: 2023/04/14 14:32:25 by arurangi         ###   ########.fr       */
+/*   Updated: 2023/04/17 10:31:48 by Arsene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,8 @@ t_common	*init_shared_data(int arg_count, char **arg_list)
 		data->nbr_of_meals = -1;
 	data->nbr_of_deaths = 0;
 	data->start_time = ft_get_time();
-	pthread_mutex_init(&data->lock, NULL);
+	pthread_mutex_init(&data->lock_meals, NULL);
+	pthread_mutex_init(&data->lock_deaths, NULL);
+	pthread_mutex_init(&data->lock_stdio, NULL);
 	return (data);
 }

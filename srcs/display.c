@@ -6,7 +6,7 @@
 /*   By: Arsene <Arsene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/05 10:24:21 by arurangi          #+#    #+#             */
-/*   Updated: 2023/04/15 15:00:50 by Arsene           ###   ########.fr       */
+/*   Updated: 2023/04/17 10:22:16 by Arsene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ void	print_msg(t_uniq *philo, char *msg)
 {
 	char	*color;
 	char	*symbol;
-	long	timestamp = ft_calc_timestamp(philo);
 
 	if (ft_strncmp("died", msg, 4) == 0)
 	{
@@ -45,8 +44,10 @@ void	print_msg(t_uniq *philo, char *msg)
 		color = CGREEN;
 		symbol = "⦿";
 	}
+	pthread_mutex_lock(&philo->shared_data->lock_stdio);
 	printf(CGRAY"%s%s\033[0m %ld\033[m ms | philo #%.3d %s%s\033[0m\n",
-		color, symbol, timestamp, philo->number, color, msg);
+		color, symbol, ft_calc_timestamp(philo), philo->number, color, msg);
+	pthread_mutex_unlock(&philo->shared_data->lock_stdio);
 	// printf("   %.7ld          #%d         %s\n",
 	// 	ft_calc_timestamp(philo), philo->number, msg);
 }

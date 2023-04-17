@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arurangi <arurangi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: Arsene <Arsene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 07:24:13 by Arsene            #+#    #+#             */
-/*   Updated: 2023/04/14 15:07:19 by arurangi         ###   ########.fr       */
+/*   Updated: 2023/04/17 10:39:08 by Arsene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,63 +18,47 @@
 
 int	main(int arg_count, char **arg_list)
 {
-	t_common	*shared_data;
 	t_uniq		*tail;
-	t_uniq		*head;
 
-	/* *************************** CHECKER **********************************
-	** - Description : check for valtid user input
-	*/
 	if (!valid_user_input(arg_count, arg_list))
 		return (EXIT_FAILURE);
-
-	/* ************************** INITIALIZER *******************************
-	** - Description : initialize the structures (philo and guests)
-	*/
 	tail = init_data(arg_count, arg_list);
-	head = tail->next;
-	shared_data = tail->shared_data;
-
-	/* ***************************** CREATE ********************************
-	** - Description : create the threads for each philo
-	*/
 	print_hud();
+	start_simulation(tail->next, tail->shared_data);
+	end_simulation(tail->next);
+	return (EXIT_SUCCESS);
+}
+
+int	start_simulation(t_uniq *philo, t_common *shared_data)
+{
+	t_uniq	*ptr;
+
+	ptr = philo;
 	for (int i = 0; i < shared_data->nbr_of_philo; i++)
 	{
-		pthread_create(&head->tid, NULL, &start_routine, (void *) head);
-		usleep(100);
-		head = head->next;
+		if (pthread_create(&ptr->tid, NULL, &start_routine, (void *) ptr))
+			return (error_msg("pthread_create()", "can't create thread", EXIT_FAILURE));
+		//usleep(100);
+		ptr = ptr->next;
 	}
-
-	/* ************************** WAIT (Delay) *****************************
-	** - Description : wait for all threads to be created
-	*/
-
-	/* **************************** MONITOR ********************************
-	** - Description : check the state of each threads
-	*/
-
-	/* ************************ WAIT (Parenting) ***************************
-	** - Description : wait for the thrads to finish their tasks
-	*/
-	head = tail->next;
+	ptr = philo;
 	for (int j = 0; j < shared_data->nbr_of_philo; j++)
 	{
-		pthread_join(head->tid, NULL);
-		head = head->next;
+		if (pthread_join(ptr->tid, NULL))
+			return (error_msg("pthread_join()", "can't join thread", EXIT_FAILURE));
+		ptr = ptr->next;
 	}
-
-	/* ***************************** DISPLAY *******************************
-	** - Description : show results
-	*/
-
-	/* ************************ DESTORY ALL ASSETS *************************
-	** - mutex  : lock, forks
-	** - malloc :  
-	*/
-	pthread_mutex_destroy(&shared_data->lock);
-	head = tail->next;
-	for (int i = 0; i < shared_data->nbr_of_philo; i++)
-		pthread_mutex_destroy(&head->fork);
 	return (EXIT_SUCCESS);
+}
+
+void	end_simulation(t_uniq *philo)
+{
+	t_uniq	*head;
+
+	pthread_mutex_destroy(&philo->shared_data->lock_meals);
+	pthread_mutex_destroy(&philo->shared_data->lock_deaths);
+	pthread_mutex_destroy(&philo->shared_data->lock_stdio);
+	head = philo;
+	for (int i = 0; i < philo->shared_data->nbr_of_philo; i++)
+		pthread_mutex_destroy(&head->fork);
 }
