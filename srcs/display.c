@@ -6,7 +6,7 @@
 /*   By: Arsene <Arsene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/05 10:24:21 by arurangi          #+#    #+#             */
-/*   Updated: 2023/04/17 15:12:42 by Arsene           ###   ########.fr       */
+/*   Updated: 2023/04/17 19:03:20 by Arsene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,25 +67,20 @@ void	counterfn(void)
 	usleep(500000);
 }
 
-void	print_msg(t_uniq *philo, char *msg)
+void	print_msg(t_uniq *philo, char *msg, unsigned int type)
 {
 	char	*color;
 	char	*symbol;
 
-	if (ft_strncmp("died", msg, 4) == 0)
+	if (type == DEATH)
 	{
 		color = CRED;
 		symbol = "✘";
 	}
-	else if (ft_strncmp("other died", msg, 10) == 0)
-	{
-		color = CYELLOW;
-		symbol = "⦿";
-	}
 	else
 	{
-		color = CGREEN;
-		symbol = "⦿";
+		color = CBLUE;
+		symbol = "‣";
 	}
 	pthread_mutex_lock(&philo->shared_data->lock_stdio);
 	if (!any_death(philo->shared_data)

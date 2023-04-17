@@ -6,33 +6,20 @@
 /*   By: Arsene <Arsene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/11 16:29:13 by arurangi          #+#    #+#             */
-/*   Updated: 2023/04/17 18:11:44 by Arsene           ###   ########.fr       */
+/*   Updated: 2023/04/17 19:24:51 by Arsene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
 
-/* Description
-** - this is the starting function of every thread 
-** Arguments
-** - philo : a structure containing all useful informations
-** Return
-*/
-
-/*
- * stay alive & think
-	- take fork
-		- eats (time)
-			- release fork
-				- sleep, think
-*/
 
 void	*start_routine(void *data)
 {
 	t_uniq	*philo = (t_uniq *) data;
 	int		meal_counter;
 
-	philo->time_of_last_meal = ft_get_time(); // Save time: beginning of simulation
+	philo->start_time = ft_get_time();
+	philo->time_of_last_meal = philo->start_time;
 	pthread_mutex_lock(&philo->shared_data->lock_meals);
 	if (philo->shared_data->nbr_of_meals != -1)
 	{
@@ -43,9 +30,9 @@ void	*start_routine(void *data)
 		{
 			if (someone_died(philo))
 				return (NULL);
-			start_eating(philo);
-			start_sleeping(philo);
-			start_thinking(philo);
+			ft_eat(philo);
+			ft_sleep(philo);
+			ft_think(philo);
 			meal_counter--;
 		}
 	}
@@ -56,49 +43,19 @@ void	*start_routine(void *data)
 		{
 			if (someone_died(philo) > 0)
 				exit(1);
-			start_eating(philo);
-			start_sleeping(philo);
-			start_thinking(philo);
+			ft_eat(philo);
+			ft_sleep(philo);
+			ft_think(philo);
 		}
 	}
 	
 	return (NULL);
 }
 
-int	someone_died(t_uniq *philo)
-{
-	/* Other philo */ // Critical!!
-	pthread_mutex_lock(&philo->shared_data->lock_deaths);
-	if (philo->shared_data->nbr_of_deaths > 0)
-	{
-		pthread_mutex_unlock(&philo->shared_data->lock_deaths);
-		return (TRUE);
-	}
-	else if (ft_get_time() - philo->time_of_last_meal > philo->time_to_die)
-	{
-		philo->shared_data->nbr_of_deaths++;
-		pthread_mutex_unlock(&philo->shared_data->lock_deaths);
-		philo->is_alive = FALSE;
-		print_msg(philo, "died");
-		return (TRUE);
-	}
-	pthread_mutex_unlock(&philo->shared_data->lock_deaths);
-	return (FALSE);
-}
-
-int	any_death(t_common *shared_data)
-{
-	pthread_mutex_lock(&shared_data->lock_deaths);
-	if (shared_data->nbr_of_deaths > 0)
-	{
-		pthread_mutex_unlock(&shared_data->lock_deaths);
-		return (1);
-	}
-	pthread_mutex_unlock(&shared_data->lock_deaths);
-	return (0);
-}
-
-void	start_eating(t_uniq *philo)
+/*
+** Eat: take two forks and ft eating
+*/
+void	ft_eat(t_uniq *philo)
 {
 	if (philo->number < philo->next->number)
 	{
@@ -117,28 +74,34 @@ void	start_eating(t_uniq *philo)
 		return ;
 	}
 
-	print_msg(philo, "has taken a fork [LEFT]");
+	print_msg(philo, "has taken a fork [LEFT]", 0);
 
-	print_msg(philo, "is eating");
-	usleep(philo->time_to_eat);
+	print_msg(philo, "is eating", 0);
+	usleep(philo->time_to_eat * 1000);
+	philo->time_of_last_meal = ft_get_time();
 
 	pthread_mutex_unlock(&philo->next->fork);
 	pthread_mutex_unlock(&philo->fork);
 
-	philo->time_of_last_meal = ft_get_time();
 }
 
-void	start_sleeping(t_uniq *philo)
+/* 
+** Sleep for specified amount of time
+*/
+void	ft_sleep(t_uniq *philo)
 {
 	if (any_death(philo->shared_data))
 		return ;
-	print_msg(philo, "is sleeping");
-	usleep(philo->time_to_sleep);
+	print_msg(philo, "is sleeping", 0);
+	usleep(philo->time_to_sleep * 1000);
 }
 
-void	start_thinking(t_uniq *philo)
+/* 
+** Think while waiting to eat
+*/
+void	ft_think(t_uniq *philo)
 {
 	if (any_death(philo->shared_data))
 		return ;
-	print_msg(philo, "is thinking");
+	print_msg(philo, "is thinking", 0);
 }

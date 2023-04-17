@@ -6,12 +6,14 @@
 /*   By: Arsene <Arsene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 07:24:28 by Arsene            #+#    #+#             */
-/*   Updated: 2023/04/17 14:57:20 by Arsene           ###   ########.fr       */
+/*   Updated: 2023/04/17 19:00:04 by Arsene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PHILO_H
 # define PHILO_H
+
+/* -------------------------------- INCLUDES -------------------------------- */
 
 # include <stdio.h>
 # include <unistd.h>
@@ -19,19 +21,16 @@
 # include <pthread.h>
 # include <sys/time.h>
 
+/* --------------------------------- MACROS --------------------------------- */
+
 # define ARG_ERROR 0
 # define ARG_SUCCESS 1
 # define TRUE 1
 # define FALSE 0
 # define ERR_EXISTANCE -1
+# define DEATH 1
 
-# define MODE 0
-
-/* ~~~~~~~~~~~~~~~~~~~~~~~ STRUCTURES ~~~~~~~~~~~~~~~~~~~~~~~ */
-
-typedef	enum e_error_types {
-	ERR_USER = 1
-}	t_error_types;
+/* ------------------------------- STRUCTURES ------------------------------- */
 
 typedef struct s_common {
 	int				nbr_of_philo;
@@ -51,14 +50,13 @@ typedef struct s_uniq {
 	unsigned int	time_to_sleep;
 	long			time_of_last_meal;
 	long			start_time;
-	pthread_mutex_t	fork;
-	struct s_uniq	*next;
 	unsigned int	is_alive;
+	pthread_mutex_t	fork;
 	t_common		*shared_data;
+	struct s_uniq	*next;
 }	t_uniq;
 
-
-/* ~~~~~~~~~~~~~~~~~~~~~~~~~~ COLORS ~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+/* --------------------------------- COLORS --------------------------------- */
 # define CGRAY     "\x1b[30m"
 # define CRED     "\x1b[31m"
 # define CGREEN   "\x1b[32m"
@@ -73,56 +71,53 @@ typedef struct s_uniq {
 # define NC	"\e[0m"
 # define YELLOW	"\e[1;33m"
 
-/* ~~~~~~~~~~~~~~~~~~~~~~~~~~ INITIALIZER ~~~~~~~~~~~~~~~~~~~~~~~~~~ */
-void	save_user_input(t_common *global, int arg_count, char **arg_list);
+/* ------------------------------- INITIALIZER ------------------------------ */
+void			save_user_input(t_common *global, int arg_count, char **arg_list);
+t_uniq			*init_data(int arg_count, char **arg_list);
+t_common		*init_shared_data(int arg_count, char **arg_list);
+void			init_philo(t_uniq *philo, t_common *shared_data,
+					char **arg_list, int counter);
 
-/* ~~~~~~~~~~~~~~~~~~~~~~~~~~ CHECKERS ~~~~~~~~~~~~~~~~~~~~~~~~~~ */
-int		valid_user_input(int arg_count, char **arg_list);
-int		ft_is_only_digits(char *str);
-int		ft_isdigit(char ch);
+/* -------------------------------- EXECUTION ------------------------------- */
+int				start_simulation(t_uniq *philo, t_common *shared_data);
+void			end_simulation(t_uniq *philo);
+int				monitor_simulation(t_common *shared_data);
 
-/* ~~~~~~~~~~~~~~~~~~~~~~~~~~ ERRORS ~~~~~~~~~~~~~~~~~~~~~~~~~~ */
-int		error_msg(char *type, char *msg, int code);
-int		err_user(int arg_count);
+/* --------------------------------- ROUTINE -------------------------------- */
+void			*start_routine(void *data);
 
-/* ~~~~~~~~~~~~~~~~~~~~~~~~~~ DISPLAY ~~~~~~~~~~~~~~~~~~~~~~~~~~ */
-void	display(void);
+void			ft_eat(t_uniq *philo);
+void			ft_sleep(t_uniq *philo);
+void			ft_think(t_uniq *philo);
 
-/* ~~~~~~~~~~~~~~~~~~~~~~~~~~ LIBRARY ~~~~~~~~~~~~~~~~~~~~~~~~~~ */
-long	ft_atoi(const char *str);
-int		ft_strncmp(const char *s1, const char *s2, size_t n);
+/* --------------------------------- CHECKER -------------------------------- */
+int				valid_user_input(int arg_count, char **arg_list);
+int				ft_is_only_digits(char *str);
+int				ft_isdigit(char ch);
+int				someone_died(t_uniq *philo);
+int				any_death(t_common *shared_data);
 
+/* --------------------------------- ERRORS --------------------------------- */
+int				error_msg(char *type, char *msg, int code);
+int				err_user(int arg_count);
 
-//t_uniq	*init_philo(t_common *data);
-t_uniq	*add_node_to_cllist(t_uniq **last);
-void	del_list(t_uniq **last);
-void	print_list(t_uniq **last);
+/* --------------------------------- DISPLAY -------------------------------- */
+void			display(void);
+void			print_msg(t_uniq *philo, char *msg, unsigned int type);
+void			print_hud(void);
 
+/* --------------------------------- LIBRARY -------------------------------- */
+long			ft_atoi(const char *str);
+int				ft_strncmp(const char *s1, const char *s2, size_t n);
+unsigned int	ft_strlen(const char *str);
 
-void		*start_routine(void *data);
-t_uniq		*init_data(int arg_count, char **arg_list);
-t_common	*init_shared_data(int arg_count, char **arg_list);
-void		init_philo(t_uniq *philo, t_common *shared_data,
-				char **arg_list, int counter);
+/* -------------------------- CIRCULAR LINKED LIST -------------------------- */
+t_uniq			*add_node_to_cllist(t_uniq **last);
+void			del_list(t_uniq **last);
+void			print_list(t_uniq **last);
 
-int		start_simulation(t_uniq *philo, t_common *shared_data);
-void	end_simulation(t_uniq *philo);
-
-void	start_eating(t_uniq *philo);
-void	start_sleeping(t_uniq *philo);
-void	start_thinking(t_uniq *philo);
-
-long	ft_get_time(void);
-long	ft_calc_timestamp(t_uniq *philo);
-
-int		someone_died(t_uniq *philo);
-int		any_death(t_common *shared_data);
-
-void	print_msg(t_uniq *philo, char *msg);
-void	print_hud(void);
-
-int	monitor_simulation(t_common *shared_data);
-
-unsigned int ft_strlen(const char *str);
+/* --------------------------------- CALCUL --------------------------------- */
+long			ft_get_time(void);
+long			ft_calc_timestamp(t_uniq *philo);
 
 #endif

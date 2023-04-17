@@ -6,7 +6,7 @@
 /*   By: Arsene <Arsene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 07:24:13 by Arsene            #+#    #+#             */
-/*   Updated: 2023/04/17 14:27:14 by Arsene           ###   ########.fr       */
+/*   Updated: 2023/04/17 19:20:28 by Arsene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@ int	start_simulation(t_uniq *philo, t_common *shared_data)
 	{
 		if (pthread_create(&ptr->tid, NULL, &start_routine, (void *) ptr))
 			return (error_msg("pthread_create()", "can't create thread", EXIT_FAILURE));
-		//usleep(100);
 		ptr = ptr->next;
 	}
 	ptr = philo;
