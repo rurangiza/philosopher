@@ -3,14 +3,27 @@
 /*                                                        :::      ::::::::   */
 /*   library.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arurangi <arurangi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: Arsene <Arsene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 13:59:11 by arurangi          #+#    #+#             */
-/*   Updated: 2023/04/14 10:43:21 by arurangi         ###   ########.fr       */
+/*   Updated: 2023/04/17 12:39:53 by Arsene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
+
+unsigned int	ft_strlen(const char *str)
+{
+	unsigned int	len;
+
+	len = 0;
+	if (str)
+	{
+		while (str[len])
+			len++;	
+	}
+	return (len);
+}
 
 long	ft_atoi(const char *str)
 {

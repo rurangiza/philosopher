@@ -6,7 +6,7 @@
 /*   By: Arsene <Arsene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 07:24:28 by Arsene            #+#    #+#             */
-/*   Updated: 2023/04/17 10:38:53 by Arsene           ###   ########.fr       */
+/*   Updated: 2023/04/17 14:57:20 by Arsene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ typedef struct s_uniq {
 	long			start_time;
 	pthread_mutex_t	fork;
 	struct s_uniq	*next;
+	unsigned int	is_alive;
 	t_common		*shared_data;
 }	t_uniq;
 
@@ -85,7 +86,7 @@ int		error_msg(char *type, char *msg, int code);
 int		err_user(int arg_count);
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~ DISPLAY ~~~~~~~~~~~~~~~~~~~~~~~~~~ */
-void	display(t_common *data);
+void	display(void);
 
 /* ~~~~~~~~~~~~~~~~~~~~~~~~~~ LIBRARY ~~~~~~~~~~~~~~~~~~~~~~~~~~ */
 long	ft_atoi(const char *str);
@@ -115,8 +116,13 @@ long	ft_get_time(void);
 long	ft_calc_timestamp(t_uniq *philo);
 
 int		someone_died(t_uniq *philo);
+int		any_death(t_common *shared_data);
 
 void	print_msg(t_uniq *philo, char *msg);
 void	print_hud(void);
+
+int	monitor_simulation(t_common *shared_data);
+
+unsigned int ft_strlen(const char *str);
 
 #endif

@@ -3,17 +3,28 @@ Variables I need to free
 
 
 
-# Thought process
-I created as many threads as philosophers
+# Pseudocode
+- check for valid user input
+- store user input
+- create as many threads as there are philosophers
+- give them the same routine/instructions to execute
+    1. pick two forks (2 mutex)
+    2. eat (ms)
+    3. sleep (ms)
+    4. think 
+    5. repeat until:
+        - a philo dies
+        - or, they've eaten their maximum number of meals
 
-The challenge of this project is to organize threads in sequence
+# To-do
+- stop simulation right after a thread died
+    - check return values of pthread_join()
+    - print some text in the main to check when a thread died
+- prevent deadlocks
+    - read pdf and understand
 
-since all want to do their tasks at the same time, we need to give access to one thread at a time
 
-
-1. pick a thread
-2. unlock the fork of his neighbour (next)
-3. pick both forks
-3. start the routine
-4. lock both forks
-5. go to next thread
+# Why learn about Assembly?
+- to better understand the need for mutexes
+- how threads fight for ressources
+- understand the steps involved in change the value of a variable

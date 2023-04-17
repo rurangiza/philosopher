@@ -6,7 +6,7 @@
 /*   By: Arsene <Arsene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 13:28:06 by arurangi          #+#    #+#             */
-/*   Updated: 2023/04/17 10:31:48 by Arsene           ###   ########.fr       */
+/*   Updated: 2023/04/17 14:42:47 by Arsene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ void	init_philo(t_uniq *philo, t_common *shared_data, char **arg_list, int count
 	philo->time_to_sleep = ft_atoi(arg_list[4]);
 	pthread_mutex_init(&philo->fork, NULL);
 	philo->start_time = shared_data->start_time;
+	philo->is_alive = TRUE;
 	philo->shared_data = shared_data;
 }
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   errors.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arurangi <arurangi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: Arsene <Arsene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 08:11:27 by Arsene            #+#    #+#             */
-/*   Updated: 2023/04/06 10:24:51 by arurangi         ###   ########.fr       */
+/*   Updated: 2023/04/17 11:10:00 by Arsene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,16 +27,26 @@ int	err_user(int arg_count)
 
 	data[0] = "./philo";
 	data[1] = "nbr_of_philo";
-	data[2] = "lifetime";
-	data[3] = "eating_Time";
-	data[4] = "sleep_Time";
+	data[2] = "time_to_die";
+	data[3] = "time_to_eat";
+	data[4] = "time_to_sleep";
 	data[5] = "(Maximum_Meals)";
 	printf(CRED"✘\033[0m Usage: ");
 	index = 0;
 	while (index < 6)
 	{
 		if (index < arg_count)
-			printf(CGREEN"%s "CRESET, data[index]);
+		{
+			if (index == 0)
+				printf(CBOLD"%s "CRESET, data[index]);
+			else
+			{
+				if (index % 2 == 0)
+					printf(CGREEN CBOLD"%s "CRESET, data[index]);
+				else
+					printf(CGREEN"%s "CRESET, data[index]);
+			}
+		}
 		else
 			printf(CGRAY"%s "CRESET, data[index]);
 		index++;

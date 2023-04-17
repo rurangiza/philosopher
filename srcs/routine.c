@@ -6,7 +6,7 @@
 /*   By: Arsene <Arsene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/11 16:29:13 by arurangi          #+#    #+#             */
-/*   Updated: 2023/04/17 10:44:15 by Arsene           ###   ########.fr       */
+/*   Updated: 2023/04/17 14:58:13 by Arsene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	*start_routine(void *data)
 		while (meal_counter > 0)
 		{
 			if (someone_died(philo))
-				exit(1);
+				return (NULL);
 			start_eating(philo);
 			start_sleeping(philo);
 			start_thinking(philo);
@@ -72,13 +72,13 @@ int	someone_died(t_uniq *philo)
 	if (philo->shared_data->nbr_of_deaths > 0)
 	{
 		pthread_mutex_unlock(&philo->shared_data->lock_deaths);
-		print_msg(philo, "other died");
 		return (TRUE);
 	}
 	else if (ft_get_time() - philo->time_of_last_meal > philo->time_to_die)
 	{
 		philo->shared_data->nbr_of_deaths++;
 		pthread_mutex_unlock(&philo->shared_data->lock_deaths);
+		philo->is_alive = FALSE;
 		print_msg(philo, "died");
 		return (TRUE);
 	}
@@ -86,12 +86,28 @@ int	someone_died(t_uniq *philo)
 	return (FALSE);
 }
 
+int	any_death(t_common *shared_data)
+{
+	pthread_mutex_lock(&shared_data->lock_deaths);
+	if (shared_data->nbr_of_deaths > 0)
+	{
+		pthread_mutex_unlock(&shared_data->lock_deaths);
+		return (1);
+	}
+	pthread_mutex_unlock(&shared_data->lock_deaths);
+	return (0);
+}
+
 void	start_eating(t_uniq *philo)
 {
 	pthread_mutex_lock(&philo->fork);
-	print_msg(philo, "has taken a fork [RIGHT]");
-
 	pthread_mutex_lock(&philo->next->fork);
+	if (someone_died(philo))
+	{
+		pthread_mutex_unlock(&philo->next->fork);
+		pthread_mutex_unlock(&philo->fork);
+		return ;
+	}
 	print_msg(philo, "has taken a fork [LEFT]");
 
 	print_msg(philo, "is eating");
@@ -105,11 +121,15 @@ void	start_eating(t_uniq *philo)
 
 void	start_sleeping(t_uniq *philo)
 {
+	if (any_death(philo->shared_data))
+		return ;
 	print_msg(philo, "is sleeping");
 	usleep(philo->time_to_sleep);
 }
 
 void	start_thinking(t_uniq *philo)
 {
+	if (any_death(philo->shared_data))
+		return ;
 	print_msg(philo, "is thinking");
 }
