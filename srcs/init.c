@@ -6,7 +6,7 @@
 /*   By: arurangi <arurangi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 13:28:06 by arurangi          #+#    #+#             */
-/*   Updated: 2023/04/18 10:15:59 by arurangi         ###   ########.fr       */
+/*   Updated: 2023/04/18 13:38:08 by arurangi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ t_uniq	*init_data(int arg_count, char **arg_list)
 	t_common	*shared_data;
 	t_uniq		*philo;
 	int			counter;
-	
+
 	shared_data = init_shared_data(arg_count, arg_list);
 	if (!shared_data)
 		return (NULL);
@@ -54,6 +54,14 @@ t_common	*init_shared_data(int arg_count, char **arg_list)
 	if (!data)
 		return (NULL);
 	data->nbr_of_philo = ft_atoi(arg_list[1]);
+	if (data->nbr_of_philo == 1)
+	{
+		printf("%s‣%s 00000 | philo #001 %shas taken a fork%s\n",
+			CBLUE, CRESET, CBLUE, CRESET);
+		printf("%s✘%s %.5ld | philo #001 %sdied%s\n",
+			CRED, CRESET, ft_atoi(arg_list[2]), CRED, CRESET);
+		return (NULL);
+	}
 	if (arg_count == 6)
 		data->nbr_of_meals = ft_atoi(arg_list[5]);
 	else

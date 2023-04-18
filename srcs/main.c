@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Arsene <Arsene@student.42.fr>              +#+  +:+       +#+        */
+/*   By: arurangi <arurangi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 07:24:13 by Arsene            #+#    #+#             */
-/*   Updated: 2023/04/17 19:20:28 by Arsene           ###   ########.fr       */
+/*   Updated: 2023/04/18 13:33:10 by arurangi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ int	main(int arg_count, char **arg_list)
 	if (!valid_user_input(arg_count, arg_list))
 		return (EXIT_FAILURE);
 	tail = init_data(arg_count, arg_list);
+	if (tail == NULL)
+		return (EXIT_FAILURE);
 	start_simulation(tail->next, tail->shared_data);
 	if (monitor_simulation(tail->shared_data))
 		return (EXIT_SUCCESS);
