@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   routine.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Arsene <Arsene@student.42.fr>              +#+  +:+       +#+        */
+/*   By: arurangi <arurangi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/11 16:29:13 by arurangi          #+#    #+#             */
-/*   Updated: 2023/04/17 19:24:51 by Arsene           ###   ########.fr       */
+/*   Updated: 2023/04/18 16:44:46 by arurangi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,7 @@ void	ft_eat(t_uniq *philo)
 
 	print_msg(philo, "is eating", 0);
 	usleep(philo->time_to_eat * 1000);
+	
 	philo->time_of_last_meal = ft_get_time();
 
 	pthread_mutex_unlock(&philo->next->fork);

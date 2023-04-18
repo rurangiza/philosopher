@@ -6,7 +6,7 @@
 /*   By: arurangi <arurangi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/05 10:24:21 by arurangi          #+#    #+#             */
-/*   Updated: 2023/04/18 11:22:22 by arurangi         ###   ########.fr       */
+/*   Updated: 2023/04/18 16:39:13 by arurangi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	print_msg(t_uniq *philo, char *msg, unsigned int type)
 	}
 	else
 	{
-		color = CBLUE;
+		color = CGREEN;
 		symbol = "‣";
 	}
 	pthread_mutex_lock(&philo->shared_data->lock_stdio);
