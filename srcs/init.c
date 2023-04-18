@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Arsene <Arsene@student.42.fr>              +#+  +:+       +#+        */
+/*   By: arurangi <arurangi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 13:28:06 by arurangi          #+#    #+#             */
-/*   Updated: 2023/04/17 19:18:51 by Arsene           ###   ########.fr       */
+/*   Updated: 2023/04/18 10:15:59 by arurangi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ void	init_philo(t_uniq *philo, t_common *shared_data, char **arg_list, int count
 	pthread_mutex_init(&philo->fork, NULL);
 	philo->is_alive = TRUE;
 	philo->time_of_last_meal = 0;
+	philo->death_time = -1;
 	philo->start_time = 0;
 	philo->shared_data = shared_data;
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   display.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Arsene <Arsene@student.42.fr>              +#+  +:+       +#+        */
+/*   By: arurangi <arurangi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/05 10:24:21 by arurangi          #+#    #+#             */
-/*   Updated: 2023/04/17 19:03:20 by Arsene           ###   ########.fr       */
+/*   Updated: 2023/04/18 11:22:22 by arurangi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,57 +15,6 @@
 */
 
 #include "../includes/philo.h"
-
-void	counterfn(void);
-
-// void	display(void)
-// {	
-// 	char *text[] = {
-// 		"Starting simulation .  ",
-// 		"Starting simulation .. ",
-// 		"Starting simulation ...",
-// 		"Starting simulation .  ",
-// 		"Starting simulation .. ",
-// 		"Starting simulation ..."};
-// 	int i = 0;
-// 	write(1, "\n", 1);
-// 	while (i < 6)
-// 	{
-// 		if (i == 0)
-// 			write(1, text[i], ft_strlen(text[i]));
-// 		else
-// 		{
-// 			write(1, "\033[19D", 20);
-// 			write(1, text[i], ft_strlen(text[i]));
-// 		}
-// 		i++;
-// 		usleep(1000000);
-// 	}
-// 	printf("\n");
-// }
-
-
-void	counterfn(void)
-{
-	printf(CBOLD"\nCount down :  \n"CRESET);
-	usleep(500000);
-	// printf("3\n");
-	// usleep(1000000);
-	// printf("2\n");
-	// usleep(1000000);
-	// printf("1\n");
-	// usleep(1000000);
-	// printf("0\n");
-	int counter = 3;
-	while (counter >= 0)
-	{
-		printf(CRED"\b%i\n"CRESET, counter);
-		counter--;
-		usleep(1000000);
-	}
-	write(1, "\n", 1);
-	usleep(500000);
-}
 
 void	print_msg(t_uniq *philo, char *msg, unsigned int type)
 {

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   checker.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Arsene <Arsene@student.42.fr>              +#+  +:+       +#+        */
+/*   By: arurangi <arurangi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 08:13:48 by Arsene            #+#    #+#             */
-/*   Updated: 2023/04/17 19:10:52 by Arsene           ###   ########.fr       */
+/*   Updated: 2023/04/18 10:17:18 by arurangi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ int	someone_died(t_uniq *philo)
 		&&ft_get_time() - philo->time_of_last_meal > philo->time_to_die)
 	{
 		philo->shared_data->nbr_of_deaths++;
+		philo->death_time = ft_get_time();
 		pthread_mutex_unlock(&philo->shared_data->lock_deaths);
 		philo->is_alive = FALSE;
 		print_msg(philo, "died", DEATH);

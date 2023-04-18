@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Arsene <Arsene@student.42.fr>              +#+  +:+       +#+        */
+/*   By: arurangi <arurangi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 07:24:28 by Arsene            #+#    #+#             */
-/*   Updated: 2023/04/17 19:00:04 by Arsene           ###   ########.fr       */
+/*   Updated: 2023/04/18 10:13:28 by arurangi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ typedef struct s_uniq {
 	unsigned int	is_alive;
 	pthread_mutex_t	fork;
 	t_common		*shared_data;
+	long			death_time;
 	struct s_uniq	*next;
 }	t_uniq;
 
