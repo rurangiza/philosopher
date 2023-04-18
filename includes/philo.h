@@ -6,7 +6,7 @@
 /*   By: arurangi <arurangi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 07:24:28 by Arsene            #+#    #+#             */
-/*   Updated: 2023/04/18 10:13:28 by arurangi         ###   ########.fr       */
+/*   Updated: 2023/04/18 16:26:22 by arurangi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,6 @@ typedef struct s_uniq {
 	unsigned int	is_alive;
 	pthread_mutex_t	fork;
 	t_common		*shared_data;
-	long			death_time;
 	struct s_uniq	*next;
 }	t_uniq;
 
@@ -109,7 +108,6 @@ void			print_hud(void);
 
 /* --------------------------------- LIBRARY -------------------------------- */
 long			ft_atoi(const char *str);
-int				ft_strncmp(const char *s1, const char *s2, size_t n);
 unsigned int	ft_strlen(const char *str);
 
 /* -------------------------- CIRCULAR LINKED LIST -------------------------- */

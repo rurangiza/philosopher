@@ -6,7 +6,7 @@
 /*   By: arurangi <arurangi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 07:24:13 by Arsene            #+#    #+#             */
-/*   Updated: 2023/04/18 13:33:10 by arurangi         ###   ########.fr       */
+/*   Updated: 2023/04/18 16:26:59 by arurangi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 
 int	main(int arg_count, char **arg_list)
 {
-	t_uniq		*tail;
+	t_uniq	*tail;
 
 	if (!valid_user_input(arg_count, arg_list))
 		return (EXIT_FAILURE);
@@ -27,8 +27,14 @@ int	main(int arg_count, char **arg_list)
 		return (EXIT_FAILURE);
 	start_simulation(tail->next, tail->shared_data);
 	if (monitor_simulation(tail->shared_data))
+	{
+		end_simulation(tail->next);
+		printf("--- Hello\n");
+		system("leaks philo");
 		return (EXIT_SUCCESS);
+	}
 	end_simulation(tail->next);
+	system("leaks philo");
 	return (EXIT_SUCCESS);
 }
 
@@ -42,6 +48,7 @@ int	start_simulation(t_uniq *philo, t_common *shared_data)
 		if (pthread_create(&ptr->tid, NULL, &start_routine, (void *) ptr))
 			return (error_msg("pthread_create()", "can't create thread", EXIT_FAILURE));
 		ptr = ptr->next;
+		usleep(1000);
 	}
 	ptr = philo;
 	for (int j = 0; j < shared_data->nbr_of_philo; j++)
@@ -75,4 +82,6 @@ void	end_simulation(t_uniq *philo)
 	head = philo;
 	for (int i = 0; i < philo->shared_data->nbr_of_philo; i++)
 		pthread_mutex_destroy(&head->fork);
+	free(philo->shared_data);
+	del_list(&philo);
 }

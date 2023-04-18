@@ -6,7 +6,7 @@
 /*   By: arurangi <arurangi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 08:13:48 by Arsene            #+#    #+#             */
-/*   Updated: 2023/04/18 10:17:18 by arurangi         ###   ########.fr       */
+/*   Updated: 2023/04/18 16:29:04 by arurangi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	valid_user_input(int arg_count, char **arg_list)
 	while (index < arg_count && arg_list[index])
 	{
 		if (!ft_is_only_digits(arg_list[index]))
-			return (error_msg("user input", "non digit arguments", FALSE));
+			return (error_msg("user input", "non valid arguments", FALSE));
 		index++;
 	}
 	return (TRUE);
@@ -69,7 +69,6 @@ int	someone_died(t_uniq *philo)
 		&&ft_get_time() - philo->time_of_last_meal > philo->time_to_die)
 	{
 		philo->shared_data->nbr_of_deaths++;
-		philo->death_time = ft_get_time();
 		pthread_mutex_unlock(&philo->shared_data->lock_deaths);
 		philo->is_alive = FALSE;
 		print_msg(philo, "died", DEATH);
