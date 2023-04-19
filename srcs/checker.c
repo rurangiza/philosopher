@@ -6,7 +6,7 @@
 /*   By: arurangi <arurangi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 08:13:48 by Arsene            #+#    #+#             */
-/*   Updated: 2023/04/18 16:29:04 by arurangi         ###   ########.fr       */
+/*   Updated: 2023/04/19 17:33:45 by arurangi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,8 +65,7 @@ int	someone_died(t_uniq *philo)
 		pthread_mutex_unlock(&philo->shared_data->lock_deaths);
 		return (TRUE);
 	}
-	else if (philo->time_of_last_meal != 0
-		&&ft_get_time() - philo->time_of_last_meal > philo->time_to_die)
+	else if (ft_get_time() - philo->time_of_last_meal > philo->time_to_die)
 	{
 		philo->shared_data->nbr_of_deaths++;
 		pthread_mutex_unlock(&philo->shared_data->lock_deaths);

@@ -6,7 +6,7 @@
 /*   By: arurangi <arurangi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/11 16:29:13 by arurangi          #+#    #+#             */
-/*   Updated: 2023/04/18 16:44:46 by arurangi         ###   ########.fr       */
+/*   Updated: 2023/04/19 17:56:44 by arurangi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,8 @@ void	ft_eat(t_uniq *philo)
 	print_msg(philo, "has taken a fork [LEFT]", 0);
 
 	print_msg(philo, "is eating", 0);
-	usleep(philo->time_to_eat * 1000);
+	//usleep(philo->time_to_eat * 1000);
+	ft_delay(philo, philo->time_to_eat);
 	
 	philo->time_of_last_meal = ft_get_time();
 
@@ -97,7 +98,7 @@ void	ft_sleep(t_uniq *philo)
 	usleep(philo->time_to_sleep * 1000);
 }
 
-/* 
+/*
 ** Think while waiting to eat
 */
 void	ft_think(t_uniq *philo)

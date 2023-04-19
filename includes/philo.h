@@ -6,7 +6,7 @@
 /*   By: arurangi <arurangi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 07:24:28 by Arsene            #+#    #+#             */
-/*   Updated: 2023/04/18 16:26:22 by arurangi         ###   ########.fr       */
+/*   Updated: 2023/04/19 17:55:45 by arurangi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ void			init_philo(t_uniq *philo, t_common *shared_data,
 /* -------------------------------- EXECUTION ------------------------------- */
 int				start_simulation(t_uniq *philo, t_common *shared_data);
 void			end_simulation(t_uniq *philo);
-int				monitor_simulation(t_common *shared_data);
+int				monitor_simulation(t_uniq *philo, t_common *shared_data);
 
 /* --------------------------------- ROUTINE -------------------------------- */
 void			*start_routine(void *data);
@@ -118,5 +118,7 @@ void			print_list(t_uniq **last);
 /* --------------------------------- CALCUL --------------------------------- */
 long			ft_get_time(void);
 long			ft_calc_timestamp(t_uniq *philo);
+
+void			ft_delay(t_uniq *philo, long time);
 
 #endif
