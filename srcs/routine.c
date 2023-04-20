@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   routine.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arurangi <arurangi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: Arsene <Arsene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/11 16:29:13 by arurangi          #+#    #+#             */
-/*   Updated: 2023/04/19 17:56:44 by arurangi         ###   ########.fr       */
+/*   Updated: 2023/04/20 05:19:49 by Arsene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,16 @@ void	ft_eat(t_uniq *philo)
 
 	print_msg(philo, "is eating", 0);
 	//usleep(philo->time_to_eat * 1000);
-	ft_delay(philo, philo->time_to_eat);
+	if (ft_delay(philo, philo->time_to_eat))
+	{
+		print_msg(philo, "died", DEATH);
+		pthread_mutex_lock(&philo->shared_data->lock_deaths);
+		philo->shared_data->nbr_of_deaths++;
+		pthread_mutex_unlock(&philo->shared_data->lock_deaths);
+		
+		pthread_mutex_unlock(&philo->next->fork);
+		pthread_mutex_unlock(&philo->fork);
+	}
 	
 	philo->time_of_last_meal = ft_get_time();
 

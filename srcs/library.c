@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   library.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arurangi <arurangi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: Arsene <Arsene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 13:59:11 by arurangi          #+#    #+#             */
-/*   Updated: 2023/04/19 17:55:10 by arurangi         ###   ########.fr       */
+/*   Updated: 2023/04/20 05:17:24 by Arsene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,15 +50,19 @@ long	ft_atoi(const char *str)
 	return (sign * result);
 }
 
-void	ft_delay(t_uniq *philo, long time)
+int	ft_delay(t_uniq *philo, long time)
 {
 	(void)time;
-	while (1)
+	int index = 0;
+	
+	while (index < time)
 	{
 		if (ft_get_time() - philo->time_of_last_meal > philo->time_to_die)
-			return ;
+			return (1);
+		index++;
 		usleep(1000);
 	}
+	return (0);
 }
 
 
