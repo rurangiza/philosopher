@@ -6,7 +6,7 @@
 /*   By: arurangi <arurangi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 07:24:13 by Arsene            #+#    #+#             */
-/*   Updated: 2023/04/24 13:41:26 by arurangi         ###   ########.fr       */
+/*   Updated: 2023/04/24 17:03:46 by arurangi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ int	main(int arg_count, char **arg_list)
 	if (tail == NULL)
 		return (EXIT_FAILURE);
 	start_simulation(tail->next, tail->shared_data);
-	//printf("---- moniroting\n");
 	end_simulation(tail->next);
 	system("leaks philo");
 	return (EXIT_SUCCESS);
