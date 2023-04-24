@@ -6,7 +6,7 @@
 /*   By: arurangi <arurangi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 07:24:13 by Arsene            #+#    #+#             */
-/*   Updated: 2023/04/19 17:53:53 by arurangi         ###   ########.fr       */
+/*   Updated: 2023/04/24 13:41:26 by arurangi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,7 @@ int	main(int arg_count, char **arg_list)
 	if (tail == NULL)
 		return (EXIT_FAILURE);
 	start_simulation(tail->next, tail->shared_data);
-	if (monitor_simulation(tail->next, tail->shared_data))
-	{
-		end_simulation(tail->next);
-		printf("--- Hello\n");
-		system("leaks philo");
-		return (EXIT_SUCCESS);
-	}
+	//printf("---- moniroting\n");
 	end_simulation(tail->next);
 	system("leaks philo");
 	return (EXIT_SUCCESS);
@@ -71,18 +65,18 @@ int	monitor_simulation(t_uniq *philo, t_common *shared_data)
 		pthread_mutex_lock(&shared_data->lock_deaths);
 		usleep(1000);
 	}
-	// (void)shared_data;
-	// t_uniq *head = philo;
-	// while (head)
-	// {
-	// 	if (ft_get_time() - philo->time_of_last_meal > philo->time_to_die)
-	// 	{
-	// 		print_msg(philo, "died", DEATH);
-	// 		return (1);
-	// 	}
-	// 	head = head->next;
-	// }
-	// return (0);
+	(void)shared_data;
+	t_uniq *head = philo;
+	while (head)
+	{
+		if (ft_get_time() - philo->time_of_last_meal > philo->time_to_die)
+		{
+			print_msg(philo, "died", DEATH);
+			return (1);
+		}
+		head = head->next;
+	}
+	return (0);
 }
 
 void	end_simulation(t_uniq *philo)

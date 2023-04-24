@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   library.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Arsene <Arsene@student.42.fr>              +#+  +:+       +#+        */
+/*   By: arurangi <arurangi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 13:59:11 by arurangi          #+#    #+#             */
-/*   Updated: 2023/04/20 05:17:24 by Arsene           ###   ########.fr       */
+/*   Updated: 2023/04/24 14:56:18 by arurangi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,17 +52,25 @@ long	ft_atoi(const char *str)
 
 int	ft_delay(t_uniq *philo, long time)
 {
-	(void)time;
-	int index = 0;
+	int	index = 0;
 	
 	while (index < time)
 	{
 		if (ft_get_time() - philo->time_of_last_meal > philo->time_to_die)
+		{
+			printf("[index = %d /  %ld ]\n", index, ft_get_time() - philo->time_of_last_meal);
+			//print_msg(philo, "starving", DEATH);
 			return (1);
+		}
+		timer(1);
 		index++;
-		usleep(1000);
 	}
 	return (0);
+}
+
+void	timer(long milliseconds)
+{
+	usleep(milliseconds * 1000);
 }
 
 

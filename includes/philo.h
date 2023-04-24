@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Arsene <Arsene@student.42.fr>              +#+  +:+       +#+        */
+/*   By: arurangi <arurangi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 07:24:28 by Arsene            #+#    #+#             */
-/*   Updated: 2023/04/20 05:16:05 by Arsene           ###   ########.fr       */
+/*   Updated: 2023/04/24 14:48:46 by arurangi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,9 @@
 # define FALSE 0
 # define ERR_EXISTANCE -1
 # define DEATH 1
+
+# define QUIT 0
+# define CONTINUE 1
 
 /* ------------------------------- STRUCTURES ------------------------------- */
 
@@ -86,16 +89,16 @@ int				monitor_simulation(t_uniq *philo, t_common *shared_data);
 /* --------------------------------- ROUTINE -------------------------------- */
 void			*start_routine(void *data);
 
-void			ft_eat(t_uniq *philo);
-void			ft_sleep(t_uniq *philo);
-void			ft_think(t_uniq *philo);
+int				eating(t_uniq *philo);
+int				sleeping(t_uniq *philo);
+int				thinking(t_uniq *philo);
 
 /* --------------------------------- CHECKER -------------------------------- */
 int				valid_user_input(int arg_count, char **arg_list);
 int				ft_is_only_digits(char *str);
 int				ft_isdigit(char ch);
-int				someone_died(t_uniq *philo);
-int				any_death(t_common *shared_data);
+int				other_died(t_common *shared_data);
+int				is_dead(t_uniq *philo);
 
 /* --------------------------------- ERRORS --------------------------------- */
 int				error_msg(char *type, char *msg, int code);
@@ -119,6 +122,6 @@ void			print_list(t_uniq **last);
 long			ft_get_time(void);
 long			ft_calc_timestamp(t_uniq *philo);
 
-int			ft_delay(t_uniq *philo, long time);
-
+int				ft_delay(t_uniq *philo, long time);
+void			timer(long milliseconds);
 #endif
