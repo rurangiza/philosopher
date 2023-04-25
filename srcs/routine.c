@@ -6,7 +6,7 @@
 /*   By: arurangi <arurangi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/11 16:29:13 by arurangi          #+#    #+#             */
-/*   Updated: 2023/04/24 17:08:50 by arurangi         ###   ########.fr       */
+/*   Updated: 2023/04/25 10:25:24 by arurangi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,16 +15,14 @@
 void	*start_routine(void *data)
 {
 	t_uniq		*philo = (t_uniq *) data;
-	t_common 	*shared_data = philo->shared_data;
 
 	philo->start_time = ft_get_time();
 	philo->time_of_last_meal = philo->start_time;
 	
 	while (TRUE)
 	{
-		if (is_dead(philo) || other_died(shared_data))
+		if (is_dead(philo) || other_died(philo))
 			exit(QUIT);
-		printf("--- inside\n");
 		if ((eating(philo) * sleeping(philo) * thinking(philo)) == 0)
 			exit(QUIT);
 	}
@@ -33,7 +31,6 @@ void	*start_routine(void *data)
 
 int	eating(t_uniq *philo)
 {
-	printf("|_ eating (start)\n");
 	// Take forks & avoid deadlocks by switching last philo
 	if (philo->number < philo->next->number)
 	{
@@ -47,7 +44,6 @@ int	eating(t_uniq *philo)
 	}
 	// 
 	print_msg(philo, "has taken the forks", 0);
-	printf("|_ eating (end)\n");
 	print_msg(philo, "is eating", 0);
 	timer(philo->time_to_eat);
 	// Release forks
@@ -58,8 +54,7 @@ int	eating(t_uniq *philo)
 
 int	sleeping(t_uniq *philo)
 {
-	printf("|_ sleeping\n");
-	if (other_died(philo->shared_data))
+	if (other_died(philo))
 		return (QUIT);
 	print_msg(philo, "is sleeping", 0);
 	timer(philo->time_to_sleep);
@@ -68,8 +63,7 @@ int	sleeping(t_uniq *philo)
 
 int	thinking(t_uniq *philo)
 {
-	printf("|_ thinking\n");
-	if (other_died(philo->shared_data))
+	if (other_died(philo))
 		return (QUIT);
 	print_msg(philo, "is thinking", 0);
 	return (CONTINUE);

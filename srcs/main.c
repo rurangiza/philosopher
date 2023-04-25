@@ -6,7 +6,7 @@
 /*   By: arurangi <arurangi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 07:24:13 by Arsene            #+#    #+#             */
-/*   Updated: 2023/04/24 17:03:46 by arurangi         ###   ########.fr       */
+/*   Updated: 2023/04/25 10:25:07 by arurangi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ int	monitor_simulation(t_uniq *philo, t_common *shared_data)
 	{
 		if (ft_get_time() - philo->time_of_last_meal > philo->time_to_die)
 		{
-			print_msg(philo, "died", DEATH);
+			print_msg(philo, "died", DEATH_CURRENT);
 			return (1);
 		}
 		head = head->next;
