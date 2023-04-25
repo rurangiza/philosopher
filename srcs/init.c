@@ -6,7 +6,7 @@
 /*   By: arurangi <arurangi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 13:28:06 by arurangi          #+#    #+#             */
-/*   Updated: 2023/04/18 16:20:43 by arurangi         ###   ########.fr       */
+/*   Updated: 2023/04/25 13:35:28 by arurangi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ t_uniq	*init_data(int arg_count, char **arg_list)
 	t_uniq		*philo;
 	int			counter;
 
+	if (!valid_user_input(arg_count, arg_list))
+		return (NULL);
 	shared_data = init_shared_data(arg_count, arg_list);
 	if (!shared_data)
 		return (NULL);
