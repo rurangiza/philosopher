@@ -6,7 +6,7 @@
 /*   By: arurangi <arurangi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 07:24:28 by Arsene            #+#    #+#             */
-/*   Updated: 2023/04/25 13:58:54 by arurangi         ###   ########.fr       */
+/*   Updated: 2023/04/25 17:11:01 by arurangi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ typedef struct s_uniq {
 	long			time_of_last_meal;
 	long			start_time;
 	unsigned int	is_alive;
+	pthread_mutex_t	lock_time_access;
 	pthread_mutex_t	fork;
 	t_common		*shared_data;
 	struct s_uniq	*next;

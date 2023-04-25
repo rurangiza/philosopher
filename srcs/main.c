@@ -6,7 +6,7 @@
 /*   By: arurangi <arurangi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 07:24:13 by Arsene            #+#    #+#             */
-/*   Updated: 2023/04/25 13:58:27 by arurangi         ###   ########.fr       */
+/*   Updated: 2023/04/25 17:09:09 by arurangi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,13 @@ int	start_simulation(t_uniq *philo, t_common *shared_data)
 	}
 	printf("---> All thread were created\n");
 	
+	pthread_t	pid_monitoring;
+	ptr = philo;
+	if (pthread_create(&pid_monitoring, NULL, &start_monitoring, (void *) ptr))
+			return (error_msg("pthread_create()", "can't create thread", EXIT_FAILURE));
+	if (pthread_join(pid_monitoring, NULL))
+			return (error_msg("pthread_join()", "can't join thread", EXIT_FAILURE));
+
 	ptr = philo;
 	for (int j = 0; j < shared_data->nbr_of_philo; j++)
 	{
@@ -50,12 +57,6 @@ int	start_simulation(t_uniq *philo, t_common *shared_data)
 		ptr = ptr->next;
 	}
 
-	pthread_t	pid_monitoring;
-	ptr = philo;
-	if (pthread_create(&pid_monitoring, NULL, &start_monitoring, (void *) ptr))
-			return (error_msg("pthread_create()", "can't create thread", EXIT_FAILURE));
-	if (pthread_join(pid_monitoring, NULL))
-			return (error_msg("pthread_join()", "can't join thread", EXIT_FAILURE));
 	return (EXIT_SUCCESS);
 }
 

@@ -6,7 +6,7 @@
 /*   By: arurangi <arurangi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 13:28:06 by arurangi          #+#    #+#             */
-/*   Updated: 2023/04/25 13:35:28 by arurangi         ###   ########.fr       */
+/*   Updated: 2023/04/25 17:11:21 by arurangi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ void	init_philo(t_uniq *philo, t_common *shared_data, char **arg_list, int count
 	philo->time_to_eat = ft_atoi(arg_list[3]);
 	philo->time_to_sleep = ft_atoi(arg_list[4]);
 	pthread_mutex_init(&philo->fork, NULL);
+	pthread_mutex_init(&philo->lock_time_access, NULL);
 	philo->is_alive = TRUE;
 	philo->time_of_last_meal = 0;
 	philo->start_time = 0;

@@ -6,7 +6,7 @@
 /*   By: arurangi <arurangi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 13:23:00 by arurangi          #+#    #+#             */
-/*   Updated: 2023/04/25 14:00:11 by arurangi         ###   ########.fr       */
+/*   Updated: 2023/04/25 17:21:59 by arurangi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,11 @@ void	*start_routine_mt(void *data)
 	t_uniq		*philo = (t_uniq *) data;
 
 	usleep(2000);
+	pthread_mutex_lock(&philo->lock_time_access);
 	philo->start_time = ft_get_time();
 	philo->time_of_last_meal = philo->start_time;
-	while (TRUE)
+	pthread_mutex_unlock(&philo->lock_time_access);
+	while (!other_died(philo))
 	{
 		eating_mt(philo);
 		sleeping_mt(philo);
@@ -31,17 +33,14 @@ void	*start_routine_mt(void *data)
 void	*start_monitoring(void *data)
 {
 	t_uniq	*philo = (t_uniq *) data;
-	
-	philo = philo;
+
 	while (philo)
 	{
 		if (is_dead(philo))
-		{
-			stop_threads(); // set nbr_of_deaths
 			return (NULL);
-		}
 		philo = philo->next;
 	}
+	return (NULL);
 }
 
 /* ************************************************************************** */
@@ -58,6 +57,7 @@ void	eating_mt(t_uniq *philo)
 void	sleeping_mt(t_uniq *philo)
 {
 	print_msg(philo, "is sleeping", 0);
+	//printf("----- sleeeeeeeepy\n");
 	timer(philo->time_to_sleep);
 }
 

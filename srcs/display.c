@@ -6,7 +6,7 @@
 /*   By: arurangi <arurangi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/05 10:24:21 by arurangi          #+#    #+#             */
-/*   Updated: 2023/04/25 10:21:34 by arurangi         ###   ########.fr       */
+/*   Updated: 2023/04/25 17:22:23 by arurangi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,10 +37,10 @@ void	print_msg(t_uniq *philo, char *msg, unsigned int type)
 		symbol = "‣";
 	}
 	pthread_mutex_lock(&philo->shared_data->lock_stdio);
-	// if (!other_died(philo->shared_data) || (other_died(philo->shared_data) && philo->is_alive == FALSE))
-	// {
 	printf(CGRAY"%s%s\033[0m %.5ld\033[m ms | philo #%.3d %s%s\033[0m\n",
 		color, symbol, ft_calc_timestamp(philo), philo->number, color, msg);
+	// if (!other_died(philo) || (other_died(philo) && philo->is_alive == FALSE))
+	// {
 	// }
 	pthread_mutex_unlock(&philo->shared_data->lock_stdio);
 }
