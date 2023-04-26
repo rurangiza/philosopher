@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   routine_monitored.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: Arsene <Arsene@student.42.fr>              +#+  +:+       +#+        */
+/*   By: arurangi <arurangi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 13:23:00 by arurangi          #+#    #+#             */
-/*   Updated: 2023/04/26 07:58:38 by Arsene           ###   ########.fr       */
+/*   Updated: 2023/04/26 12:07:57 by arurangi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,11 @@ void	*start_routine_mt(void *data)
 	philo->start_time = ft_get_time();
 	philo->time_of_last_meal = philo->start_time;
 	pthread_mutex_unlock(&philo->lock_time_access);
-	while (!other_died(philo))
+	while (TRUE)
 	{
+		if (other_died(philo))
+			break ;
+		printf("--- something\n");
 		eating_mt(philo);
 		sleeping_mt(philo);
 		thinking_mt(philo);
@@ -33,8 +36,12 @@ void	*start_routine_mt(void *data)
 void	*start_monitoring(void *data)
 {
 	t_uniq	*philo = (t_uniq *) data;
+	int		time_to_die;
 
-	usleep(2000);
+	pthread_mutex_lock(&philo->lock_time_access);
+	time_to_die = philo->time_to_die;
+	pthread_mutex_lock(&philo->lock_time_access);
+	timer(time_to_die);
 	while (philo)
 	{
 		if (is_dead(philo))
@@ -53,12 +60,10 @@ void	eating_mt(t_uniq *philo)
 	print_msg(philo, "is eating", 0);
 	timer(philo->time_to_eat);
 	drop_forks(philo);
-	printf("--- finished eating\n");
 }
 
 void	sleeping_mt(t_uniq *philo)
 {
-	printf("----- sleeeeeeeepy\n");
 	print_msg(philo, "is sleeping", 0);
 	timer(philo->time_to_sleep);
 }
