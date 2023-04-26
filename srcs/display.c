@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   display.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arurangi <arurangi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: Arsene <Arsene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/05 10:24:21 by arurangi          #+#    #+#             */
-/*   Updated: 2023/04/25 17:22:23 by arurangi         ###   ########.fr       */
+/*   Updated: 2023/04/26 08:01:39 by Arsene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,13 +36,15 @@ void	print_msg(t_uniq *philo, char *msg, unsigned int type)
 		color = CGREEN;
 		symbol = "‣";
 	}
+	printf("--- locking stdin (philo %d)\n", philo->number);
 	pthread_mutex_lock(&philo->shared_data->lock_stdio);
-	printf(CGRAY"%s%s\033[0m %.5ld\033[m ms | philo #%.3d %s%s\033[0m\n",
-		color, symbol, ft_calc_timestamp(philo), philo->number, color, msg);
-	// if (!other_died(philo) || (other_died(philo) && philo->is_alive == FALSE))
-	// {
-	// }
+	if (!other_died(philo) || is_dead(philo))
+	{
+		printf(CGRAY"%s%s\033[0m %.5ld\033[m ms | philo #%.3d %s%s\033[0m\n",
+			color, symbol, ft_calc_timestamp(philo), philo->number, color, msg);
+	}
 	pthread_mutex_unlock(&philo->shared_data->lock_stdio);
+	printf("--- unlocking stdin (philo %d)\n", philo->number);
 }
 
 void	print_hud(void)

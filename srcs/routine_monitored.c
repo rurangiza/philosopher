@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   routine_monitored.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arurangi <arurangi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: Arsene <Arsene@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 13:23:00 by arurangi          #+#    #+#             */
-/*   Updated: 2023/04/25 17:21:59 by arurangi         ###   ########.fr       */
+/*   Updated: 2023/04/26 07:58:38 by Arsene           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	*start_routine_mt(void *data)
 {
 	t_uniq		*philo = (t_uniq *) data;
 
-	usleep(2000);
+	usleep(1000);
 	pthread_mutex_lock(&philo->lock_time_access);
 	philo->start_time = ft_get_time();
 	philo->time_of_last_meal = philo->start_time;
@@ -34,6 +34,7 @@ void	*start_monitoring(void *data)
 {
 	t_uniq	*philo = (t_uniq *) data;
 
+	usleep(2000);
 	while (philo)
 	{
 		if (is_dead(philo))
@@ -52,12 +53,13 @@ void	eating_mt(t_uniq *philo)
 	print_msg(philo, "is eating", 0);
 	timer(philo->time_to_eat);
 	drop_forks(philo);
+	printf("--- finished eating\n");
 }
 
 void	sleeping_mt(t_uniq *philo)
 {
+	printf("----- sleeeeeeeepy\n");
 	print_msg(philo, "is sleeping", 0);
-	//printf("----- sleeeeeeeepy\n");
 	timer(philo->time_to_sleep);
 }
 

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: arurangi <arurangi@student.42.fr>          +#+  +:+       +#+         #
+#    By: Arsene <Arsene@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/04 07:24:25 by Arsene            #+#    #+#              #
-#    Updated: 2023/04/25 13:23:23 by arurangi         ###   ########.fr        #
+#    Updated: 2023/04/26 07:47:38 by Arsene           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -51,8 +51,7 @@ SRC_FILES	=	$(SRC_FOLDER)main.c \
 OBJ_FILES	=	${SRC_FILES:.c=.o}
 
 %.o: %.c
-	@$(CC) $(FLAGS)  -c $< -o $@
-	@echo "$(CLR_GREEN)▮\c$(CLR_RESET)"
+	$(CC) $(FLAGS)  -c $< -o $@
 
 # ~~~~~~~~~~~~ Rules ~~~~~~~~~~~~~ #
 
@@ -60,13 +59,13 @@ OBJ_FILES	=	${SRC_FILES:.c=.o}
 all: 	$(NAME)
 		
 $(NAME):	 $(OBJ_FILES) 
-				@$(COMPILER) $(FLAGS) -o $(NAME) $(SRC_FILES)
+				$(COMPILER) $(FLAGS) -o $(NAME) $(SRC_FILES)
 
 clean:
-				@rm -f $(OBJ_FILES)		
+				rm -f $(OBJ_FILES)		
 
 fclean:	clean
-				@rm -f ${NAME}
+				rm -f ${NAME}
 
 re:		fclean all
 
