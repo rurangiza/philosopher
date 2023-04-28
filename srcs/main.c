@@ -6,7 +6,7 @@
 /*   By: arurangi <arurangi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 07:24:13 by Arsene            #+#    #+#             */
-/*   Updated: 2023/04/28 13:44:31 by arurangi         ###   ########.fr       */
+/*   Updated: 2023/04/28 16:12:59 by arurangi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,29 +42,6 @@ int	start_simulation(t_uniq *philo, t_common *shared_data)
 		ptr = ptr->next;
 	}
 
-	// pthread_create(&ptr->tid, NULL, &start_routine_mt, (void *) ptr);
-	// pthread_join(ptr->tid, NULL);
-
-	// Monitoring
-	// int index = 0;
-	// usleep(1000);
-	// while (1)
-	// {
-	// 	ptr = philo;
-	// 	int mortality = 0;
-	// 	while (index < shared_data->nbr_of_philo)
-	// 	{
-	// 		pthread_mutex_lock(&philo->lock_time_access);
-	// 		if (ptr->is_alive == FALSE)
-	// 			mortality++;
-	// 		pthread_mutex_unlock(&philo->lock_time_access);
-	// 		ptr = ptr->next;
-	// 		index++;
-	// 	}
-	// 	if (mortality == shared_data->nbr_of_philo)
-	// 		break ;
-	// 	usleep(1000);
-	// }
 	// Exiting threads
 	ptr = philo;
 	for (int j = 0; j < shared_data->nbr_of_philo; j++)
@@ -93,3 +70,31 @@ void	end_simulation(t_uniq *philo)
 	}
 	del_list(&philo);
 }
+
+/*
+
+// pthread_create(&ptr->tid, NULL, &start_routine_mt, (void *) ptr);
+	// pthread_join(ptr->tid, NULL);
+
+	// Monitoring
+	// int index = 0;
+	// usleep(1000);
+	// while (1)
+	// {
+	// 	ptr = philo;
+	// 	int mortality = 0;
+	// 	while (index < shared_data->nbr_of_philo)
+	// 	{
+	// 		pthread_mutex_lock(&philo->lock_time_access);
+	// 		if (ptr->is_alive == FALSE)
+	// 			mortality++;
+	// 		pthread_mutex_unlock(&philo->lock_time_access);
+	// 		ptr = ptr->next;
+	// 		index++;
+	// 	}
+	// 	if (mortality == shared_data->nbr_of_philo)
+	// 		break ;
+	// 	usleep(1000);
+	// }
+
+*/
