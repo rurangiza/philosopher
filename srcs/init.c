@@ -6,7 +6,7 @@
 /*   By: arurangi <arurangi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 13:28:06 by arurangi          #+#    #+#             */
-/*   Updated: 2023/04/25 17:11:21 by arurangi         ###   ########.fr       */
+/*   Updated: 2023/04/28 14:41:10 by arurangi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ void	init_philo(t_uniq *philo, t_common *shared_data, char **arg_list, int count
 	philo->time_of_last_meal = 0;
 	philo->start_time = 0;
 	philo->shared_data = shared_data;
+	philo->meals_eaten = 0;
 }
 
 t_common	*init_shared_data(int arg_count, char **arg_list)

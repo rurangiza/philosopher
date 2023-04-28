@@ -6,7 +6,7 @@
 /*   By: arurangi <arurangi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 07:24:28 by Arsene            #+#    #+#             */
-/*   Updated: 2023/04/28 11:31:13 by arurangi         ###   ########.fr       */
+/*   Updated: 2023/04/28 14:44:03 by arurangi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,9 @@
 # define QUIT 0
 # define CONTINUE 1
 
+# define INFINIT_BANQUET 1
+# define LIMITED_MEALS 0
+
 /* ------------------------------- STRUCTURES ------------------------------- */
 
 typedef struct s_common {
@@ -55,6 +58,7 @@ typedef struct s_uniq {
 	long			time_of_last_meal;
 	long			start_time;
 	unsigned int	is_alive;
+	int				meals_eaten;
 	pthread_mutex_t	lock_time_access;
 	pthread_mutex_t	fork;
 	t_common		*shared_data;
@@ -110,6 +114,7 @@ int				ft_is_only_digits(char *str);
 int				ft_isdigit(char ch);
 int				other_died(t_uniq *philo);
 int				is_dead(t_uniq *philo);
+int				is_full(t_uniq *philo, unsigned int mode);
 
 /* --------------------------------- ERRORS --------------------------------- */
 int				error_msg(char *type, char *msg, int code);

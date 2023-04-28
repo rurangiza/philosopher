@@ -6,7 +6,7 @@
 /*   By: arurangi <arurangi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 08:13:48 by Arsene            #+#    #+#             */
-/*   Updated: 2023/04/28 11:54:43 by arurangi         ###   ########.fr       */
+/*   Updated: 2023/04/28 14:46:58 by arurangi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,5 +89,15 @@ int	is_dead(t_uniq *philo)
 	}
 	else
 		pthread_mutex_unlock(&philo->lock_time_access);
+	return (FALSE);
+}
+
+int	is_full(t_uniq *philo, unsigned int mode)
+{
+	if (philo->meals_eaten >= philo->shared_data->nbr_of_meals
+		&& mode == LIMITED_MEALS)
+	{
+		return (TRUE);
+	}
 	return (FALSE);
 }
