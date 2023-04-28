@@ -6,7 +6,7 @@
 /*   By: arurangi <arurangi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 07:24:28 by Arsene            #+#    #+#             */
-/*   Updated: 2023/04/28 14:44:03 by arurangi         ###   ########.fr       */
+/*   Updated: 2023/04/28 17:08:11 by arurangi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,9 +101,9 @@ int				sleeping(t_uniq *philo);
 int				thinking(t_uniq *philo);
 
 void			*start_routine_mt(void *data);
-unsigned int	eating_mt(t_uniq *philo);
-unsigned int	sleeping_mt(t_uniq *philo);
-unsigned int	thinking_mt(t_uniq *philo);
+int				eating_mt(t_uniq *philo);
+int				sleeping_mt(t_uniq *philo);
+int				thinking_mt(t_uniq *philo);
 
 void			drop_forks(t_uniq *philo);
 void			take_forks(t_uniq *philo);
@@ -142,5 +142,7 @@ int				ft_delay(t_uniq *philo, long time);
 void			timer(long milliseconds);
 
 void			update_time_of_last_meal(t_uniq *philo);
+
+int				monitoring(t_uniq *philo);
 
 #endif

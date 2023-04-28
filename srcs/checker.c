@@ -6,7 +6,7 @@
 /*   By: arurangi <arurangi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 08:13:48 by Arsene            #+#    #+#             */
-/*   Updated: 2023/04/28 16:09:59 by arurangi         ###   ########.fr       */
+/*   Updated: 2023/04/28 17:05:41 by arurangi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,15 +73,17 @@ int	other_died(t_uniq *philo)
 
 int	is_dead(t_uniq *philo)
 {
+	pthread_mutex_lock(&philo->lock_time_access);
 	if (ft_get_time() - philo->time_of_last_meal > philo->time_to_die)
 	{
+		pthread_mutex_unlock(&philo->lock_time_access);
+
 		pthread_mutex_lock(&philo->shared_data->lock_deaths);
 		philo->shared_data->nbr_of_deaths++;
-		print_msg(philo, "died", DEATH_CURRENT);
-		pthread_mutex_unlock(&philo->shared_data->lock_deaths);
-		
 		philo->is_alive = FALSE;
-		
+		pthread_mutex_unlock(&philo->shared_data->lock_deaths);
+		print_msg(philo, "died", DEATH_CURRENT);
+
 		return (TRUE);
 	}
 	else
