@@ -6,7 +6,7 @@
 /*   By: arurangi <arurangi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 13:23:00 by arurangi          #+#    #+#             */
-/*   Updated: 2023/04/28 11:07:27 by arurangi         ###   ########.fr       */
+/*   Updated: 2023/04/28 11:41:26 by arurangi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,10 @@ void	*start_routine_mt(void *data)
 	philo->start_time = ft_get_time();
 	philo->time_of_last_meal = philo->start_time;
 	pthread_mutex_unlock(&philo->lock_time_access);
-	while (TRUE)
+	while (!other_died(philo))
 	{
-		if (other_died(philo))
+		if ((eating_mt(philo) * sleeping_mt(philo) * thinking_mt(philo)) == 0)
 			break ;
-		eating_mt(philo);
-		sleeping_mt(philo);
-		thinking_mt(philo);
 	}
 	return (NULL);
 }
@@ -52,24 +49,38 @@ void	*start_monitoring(void *data)
 
 /* ************************************************************************** */
 
-void	eating_mt(t_uniq *philo)
+unsigned int	eating_mt(t_uniq *philo)
 {
 	take_forks(philo);
+	if (other_died(philo) || is_dead(philo))
+	{
+		drop_forks(philo);
+		return (QUIT);
+	}
 	print_msg(philo, "has taken the forks 🍴", 0);
 	print_msg(philo, "is eating 🥘           ", 0);
 	timer(philo->time_to_eat);
 	drop_forks(philo);
+	update_time_of_last_meal(philo);
+	return (CONTINUE);
 }
 
-void	sleeping_mt(t_uniq *philo)
+unsigned int	sleeping_mt(t_uniq *philo)
 {
+	if (other_died(philo))
+		return (QUIT);
 	print_msg(philo, "is sleeping 💤        ", 0);
 	timer(philo->time_to_sleep);
+	return (CONTINUE);
 }
 
-void	thinking_mt(t_uniq *philo)
+unsigned int	thinking_mt(t_uniq *philo)
 {
+	if (other_died(philo))
+		return (QUIT);
 	print_msg(philo, "is thinking 💭        ", 0);
+	return (CONTINUE);
+	
 }
 
 /* ************************************************************************** */
@@ -92,4 +103,9 @@ void	drop_forks(t_uniq *philo)
 {
 	pthread_mutex_unlock(&philo->next->fork);
 	pthread_mutex_unlock(&philo->fork);
+}
+
+void	update_time_of_last_meal(t_uniq *philo)
+{
+	philo->time_of_last_meal = ft_get_time(); // maybe add mutex
 }

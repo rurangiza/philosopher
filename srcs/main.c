@@ -6,7 +6,7 @@
 /*   By: arurangi <arurangi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 07:24:13 by Arsene            #+#    #+#             */
-/*   Updated: 2023/04/28 10:54:03 by arurangi         ###   ########.fr       */
+/*   Updated: 2023/04/28 11:54:49 by arurangi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,13 +41,28 @@ int	start_simulation(t_uniq *philo, t_common *shared_data)
 			return (error_msg("pthread_create()", "can't create thread", EXIT_FAILURE));
 		ptr = ptr->next;
 	}
+
+	// pthread_create(&ptr->tid, NULL, &start_routine_mt, (void *) ptr);
+	// pthread_join(ptr->tid, NULL);
+
 	// Monitoring
-	// ptr = philo;
-	// while (philo)
+	// int index = 0;
+	// usleep(1000);
+	// while (1)
 	// {
-	// 	if (is_dead(philo))
+	// 	ptr = philo;
+	// 	int mortality = 0;
+	// 	while (index < shared_data->nbr_of_philo)
+	// 	{
+	// 		pthread_mutex_lock(&philo->lock_time_access);
+	// 		if (ptr->is_alive == FALSE)
+	// 			mortality++;
+	// 		pthread_mutex_unlock(&philo->lock_time_access);
+	// 		ptr = ptr->next;
+	// 		index++;
+	// 	}
+	// 	if (mortality == shared_data->nbr_of_philo)
 	// 		break ;
-	// 	philo = philo->next;
 	// 	usleep(1000);
 	// }
 	// Exiting threads
