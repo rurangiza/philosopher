@@ -6,7 +6,7 @@
 /*   By: arurangi <arurangi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 13:23:00 by arurangi          #+#    #+#             */
-/*   Updated: 2023/04/26 12:07:57 by arurangi         ###   ########.fr       */
+/*   Updated: 2023/04/28 11:07:27 by arurangi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ void	*start_routine_mt(void *data)
 	{
 		if (other_died(philo))
 			break ;
-		printf("--- something\n");
 		eating_mt(philo);
 		sleeping_mt(philo);
 		thinking_mt(philo);
@@ -56,21 +55,21 @@ void	*start_monitoring(void *data)
 void	eating_mt(t_uniq *philo)
 {
 	take_forks(philo);
-	print_msg(philo, "has taken the forks", 0);
-	print_msg(philo, "is eating", 0);
+	print_msg(philo, "has taken the forks 🍴", 0);
+	print_msg(philo, "is eating 🥘           ", 0);
 	timer(philo->time_to_eat);
 	drop_forks(philo);
 }
 
 void	sleeping_mt(t_uniq *philo)
 {
-	print_msg(philo, "is sleeping", 0);
+	print_msg(philo, "is sleeping 💤        ", 0);
 	timer(philo->time_to_sleep);
 }
 
 void	thinking_mt(t_uniq *philo)
 {
-	print_msg(philo, "is thinking", 0);
+	print_msg(philo, "is thinking 💭        ", 0);
 }
 
 /* ************************************************************************** */

@@ -6,7 +6,7 @@
 /*   By: arurangi <arurangi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 08:13:48 by Arsene            #+#    #+#             */
-/*   Updated: 2023/04/25 17:15:03 by arurangi         ###   ########.fr       */
+/*   Updated: 2023/04/28 11:04:04 by arurangi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,12 +62,11 @@ int	other_died(t_uniq *philo)
 	pthread_mutex_lock(&philo->shared_data->lock_deaths);
 	if (philo->shared_data->nbr_of_deaths > 0)
 	{
-		pthread_mutex_unlock(&philo->shared_data->lock_deaths);
 		print_msg(philo, "other died", DEATH_OTHER);
+		pthread_mutex_unlock(&philo->shared_data->lock_deaths);
 		return (TRUE);
 	}
-	else
-		pthread_mutex_unlock(&philo->shared_data->lock_deaths);
+	pthread_mutex_unlock(&philo->shared_data->lock_deaths);
 	return (FALSE);
 }
 
@@ -80,8 +79,8 @@ int	is_dead(t_uniq *philo)
 
 		pthread_mutex_lock(&philo->shared_data->lock_deaths);
 		philo->shared_data->nbr_of_deaths++;
-		pthread_mutex_unlock(&philo->shared_data->lock_deaths);
 		print_msg(philo, "died", DEATH_CURRENT);
+		pthread_mutex_unlock(&philo->shared_data->lock_deaths);
 		
 		philo->is_alive = FALSE;
 		
