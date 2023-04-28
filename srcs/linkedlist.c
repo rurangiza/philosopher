@@ -6,7 +6,7 @@
 /*   By: arurangi <arurangi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/10 09:54:47 by arurangi          #+#    #+#             */
-/*   Updated: 2023/04/14 09:53:26 by arurangi         ###   ########.fr       */
+/*   Updated: 2023/04/28 12:05:15 by arurangi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@ void	del_list(t_uniq **last)
 	{
 		tmp = *last;
 		*last = (*last)->next;
-		tmp->number = -1;;
 		free(tmp);
 	}
 	*last = 0;

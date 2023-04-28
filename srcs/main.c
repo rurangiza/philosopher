@@ -6,7 +6,7 @@
 /*   By: arurangi <arurangi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 07:24:13 by Arsene            #+#    #+#             */
-/*   Updated: 2023/04/28 11:54:49 by arurangi         ###   ########.fr       */
+/*   Updated: 2023/04/28 12:05:54 by arurangi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	main(int arg_count, char **arg_list)
 		return (EXIT_FAILURE);
 	start_simulation(guests->next, guests->shared_data);
 	end_simulation(guests->next);
-	system("leaks philo");
+	//system("leaks philo");
 	return (EXIT_SUCCESS);
 }
 
@@ -73,7 +73,7 @@ int	start_simulation(t_uniq *philo, t_common *shared_data)
 			return (error_msg("pthread_join()", "can't join thread", EXIT_FAILURE));
 		ptr = ptr->next;
 	}
-
+	printf("exiting start_simulation()\n");
 	return (EXIT_SUCCESS);
 }
 
@@ -84,9 +84,14 @@ void	end_simulation(t_uniq *philo)
 	pthread_mutex_destroy(&philo->shared_data->lock_meals);
 	pthread_mutex_destroy(&philo->shared_data->lock_deaths);
 	pthread_mutex_destroy(&philo->shared_data->lock_stdio);
-	head = philo;
-	for (int i = 0; i < philo->shared_data->nbr_of_philo; i++)
-		pthread_mutex_destroy(&head->fork);
 	free(philo->shared_data);
+
+	head = philo;
+	for (int i = 0; i < head->shared_data->nbr_of_philo; i++)
+	{
+		pthread_mutex_destroy(&head->fork);
+		pthread_mutex_destroy(&head->lock_time_access);
+	}
+	printf("---- here\n");
 	del_list(&philo);
 }
