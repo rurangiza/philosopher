@@ -6,7 +6,7 @@
 /*   By: arurangi <arurangi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 07:24:13 by Arsene            #+#    #+#             */
-/*   Updated: 2023/04/28 12:05:54 by arurangi         ###   ########.fr       */
+/*   Updated: 2023/04/28 13:44:31 by arurangi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,6 @@ int	start_simulation(t_uniq *philo, t_common *shared_data)
 			return (error_msg("pthread_join()", "can't join thread", EXIT_FAILURE));
 		ptr = ptr->next;
 	}
-	printf("exiting start_simulation()\n");
 	return (EXIT_SUCCESS);
 }
 
@@ -92,6 +91,5 @@ void	end_simulation(t_uniq *philo)
 		pthread_mutex_destroy(&head->fork);
 		pthread_mutex_destroy(&head->lock_time_access);
 	}
-	printf("---- here\n");
 	del_list(&philo);
 }
