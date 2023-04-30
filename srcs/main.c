@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arurangi <arurangi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lupin <lupin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 07:24:13 by Arsene            #+#    #+#             */
-/*   Updated: 2023/04/28 17:09:54 by arurangi         ###   ########.fr       */
+/*   Updated: 2023/04/30 10:21:24 by lupin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,13 +37,10 @@ int	start_simulation(t_uniq *philo, t_common *shared_data)
 		if (pthread_create(&ptr->tid, NULL, &start_routine_mt, (void *) ptr))
 			return (error_msg("pthread_create()", "can't create thread", EXIT_FAILURE));
 		ptr = ptr->next;
-		usleep(100);
+		usleep(1000);
 	}
 	if (monitoring(philo))
-	{
-		printf("--- ending\n");
 		end_simulation(philo);
-	}
 	return (EXIT_SUCCESS);
 }
 
@@ -54,6 +51,7 @@ void	end_simulation(t_uniq *philo)
 
 	ptr = philo;
 	// join all threads
+	//printf("|_ join all threads\n");
 	for (int j = 0; j < philo->shared_data->nbr_of_philo; j++)
 	{
 		if (pthread_join(ptr->tid, NULL))
@@ -61,25 +59,27 @@ void	end_simulation(t_uniq *philo)
 		ptr = ptr->next;
 	}
 	// COMMON: destroy mutexes & free ressources
+	//printf("|_ destroy COMMON data\n");
 	pthread_mutex_destroy(&philo->shared_data->lock_meals);
 	pthread_mutex_destroy(&philo->shared_data->lock_deaths);
 	pthread_mutex_destroy(&philo->shared_data->lock_stdio);
-	free(philo->shared_data);
 	// UNIQ: destroy mutexes & free ressources
+	//printf("|_ destroy UNIQ data\n");
 	head = philo;
 	for (int i = 0; i < head->shared_data->nbr_of_philo; i++)
 	{
 		pthread_mutex_destroy(&head->fork);
 		pthread_mutex_destroy(&head->lock_time_access);
 	}
-	del_list(&philo);
+	free(philo->shared_data);
+	//del_list(&philo);
 }
 
 int	monitoring(t_uniq *philo)
 {
 	int index;
 
-	while (1)
+	while (TRUE)
 	{
 		index = 0;
 		while (index < philo->shared_data->nbr_of_philo)

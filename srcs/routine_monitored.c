@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   routine_monitored.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arurangi <arurangi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lupin <lupin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 13:23:00 by arurangi          #+#    #+#             */
-/*   Updated: 2023/04/28 17:10:51 by arurangi         ###   ########.fr       */
+/*   Updated: 2023/04/30 10:16:40 by lupin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,11 +30,11 @@ void	*start_routine_mt(void *data)
 	// start routine
 	while (!is_full(philo, mode))
 	{
-		if (eating_mt(philo))
+		if (!eating_mt(philo))
 			break ;
-		if (sleeping_mt(philo))
+		if (!sleeping_mt(philo))
 			break ;
-		if (thinking_mt(philo))
+		if (!thinking_mt(philo))
 			break ;
 		if (mode == LIMITED_MEALS)
 			philo->meals_eaten++;
