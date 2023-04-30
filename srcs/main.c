@@ -6,7 +6,7 @@
 /*   By: lupin <lupin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 07:24:13 by Arsene            #+#    #+#             */
-/*   Updated: 2023/04/30 10:21:24 by lupin            ###   ########.fr       */
+/*   Updated: 2023/04/30 11:36:24 by lupin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int	start_simulation(t_uniq *philo, t_common *shared_data)
 		ptr = ptr->next;
 		usleep(1000);
 	}
-	if (monitoring(philo))
+	if (monitoring(philo, shared_data))
 		end_simulation(philo);
 	return (EXIT_SUCCESS);
 }
@@ -70,21 +70,29 @@ void	end_simulation(t_uniq *philo)
 	{
 		pthread_mutex_destroy(&head->fork);
 		pthread_mutex_destroy(&head->lock_time_access);
+		pthread_mutex_destroy(&head->lock_meals_eaten);
 	}
 	free(philo->shared_data);
 	//del_list(&philo);
 }
 
-int	monitoring(t_uniq *philo)
+int	monitoring(t_uniq *philo, t_common *shared_data)
 {
 	int index;
+	int	meals_count;
 
 	while (TRUE)
 	{
 		index = 0;
+		meals_count = 0;
 		while (index < philo->shared_data->nbr_of_philo)
 		{
 			if (is_dead(philo))
+				return (1);
+			pthread_mutex_lock(&philo->lock_meals_eaten);
+			meals_count += philo->meals_eaten;
+			pthread_mutex_unlock(&philo->lock_meals_eaten);
+			if (is_full(shared_data, meals_count))
 				return (1);
 			philo = philo->next;
 			index++;

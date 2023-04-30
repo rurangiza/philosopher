@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arurangi <arurangi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lupin <lupin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 07:24:28 by Arsene            #+#    #+#             */
-/*   Updated: 2023/04/28 17:08:11 by arurangi         ###   ########.fr       */
+/*   Updated: 2023/04/30 11:19:15 by lupin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,9 +57,10 @@ typedef struct s_uniq {
 	unsigned int	time_to_sleep;
 	long			time_of_last_meal;
 	long			start_time;
+	pthread_mutex_t	lock_time_access;
 	unsigned int	is_alive;
 	int				meals_eaten;
-	pthread_mutex_t	lock_time_access;
+	pthread_mutex_t	lock_meals_eaten;
 	pthread_mutex_t	fork;
 	t_common		*shared_data;
 	struct s_uniq	*next;
@@ -94,7 +95,7 @@ int				monitor_simulation(t_uniq *philo);
 
 /* --------------------------------- ROUTINE -------------------------------- */
 void			*start_routine(void *data);
-void			*start_monitoring(void *data);
+//void			*start_monitoring(void *data);
 
 int				eating(t_uniq *philo);
 int				sleeping(t_uniq *philo);
@@ -114,16 +115,15 @@ int				ft_is_only_digits(char *str);
 int				ft_isdigit(char ch);
 int				other_died(t_uniq *philo);
 int				is_dead(t_uniq *philo);
-int				is_full(t_uniq *philo, unsigned int mode);
+int				is_full(t_common *shared_data, int meals_count);
 
 /* --------------------------------- ERRORS --------------------------------- */
 int				error_msg(char *type, char *msg, int code);
 int				err_user(int arg_count);
 
 /* --------------------------------- DISPLAY -------------------------------- */
-void			display(void);
+//void			display(void);
 void			print_msg(t_uniq *philo, char *msg, unsigned int type);
-void			print_hud(void);
 
 /* --------------------------------- LIBRARY -------------------------------- */
 long			ft_atoi(const char *str);
@@ -143,6 +143,6 @@ void			timer(long milliseconds);
 
 void			update_time_of_last_meal(t_uniq *philo);
 
-int				monitoring(t_uniq *philo);
+int				monitoring(t_uniq *philo, t_common *shared_data);
 
 #endif

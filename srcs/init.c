@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arurangi <arurangi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lupin <lupin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 13:28:06 by arurangi          #+#    #+#             */
-/*   Updated: 2023/04/28 14:41:10 by arurangi         ###   ########.fr       */
+/*   Updated: 2023/04/30 10:58:51 by lupin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ void	init_philo(t_uniq *philo, t_common *shared_data, char **arg_list, int count
 	philo->time_to_sleep = ft_atoi(arg_list[4]);
 	pthread_mutex_init(&philo->fork, NULL);
 	pthread_mutex_init(&philo->lock_time_access, NULL);
+	pthread_mutex_init(&philo->lock_meals_eaten, NULL);
 	philo->is_alive = TRUE;
 	philo->time_of_last_meal = 0;
 	philo->start_time = 0;

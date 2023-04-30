@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   checker.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arurangi <arurangi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lupin <lupin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 08:13:48 by Arsene            #+#    #+#             */
-/*   Updated: 2023/04/28 17:05:41 by arurangi         ###   ########.fr       */
+/*   Updated: 2023/04/30 11:34:20 by lupin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ int	other_died(t_uniq *philo)
 	{
 		pthread_mutex_unlock(&philo->shared_data->lock_deaths);
 		philo->is_alive = FALSE;
-		print_msg(philo, "other died", DEATH_OTHER);
+		//print_msg(philo, "other died", DEATH_OTHER);
 		return (TRUE);
 	}
 	pthread_mutex_unlock(&philo->shared_data->lock_deaths);
@@ -91,12 +91,19 @@ int	is_dead(t_uniq *philo)
 	return (FALSE);
 }
 
-int	is_full(t_uniq *philo, unsigned int mode)
+int	is_full(t_common *shared_data, int meals_count)
 {
-	if (philo->meals_eaten >= philo->shared_data->nbr_of_meals
-		&& mode == LIMITED_MEALS)
+	if (shared_data->nbr_of_meals != -1)
 	{
-		return (TRUE);
+		if (meals_count >=
+			(shared_data->nbr_of_philo * shared_data->nbr_of_meals))
+		{
+			pthread_mutex_lock(&shared_data->lock_deaths);
+			shared_data->nbr_of_deaths++;
+			pthread_mutex_unlock(&shared_data->lock_deaths);
+			return (TRUE);
+		}
+		return (FALSE);
 	}
-	return (FALSE);
+	return (0);
 }

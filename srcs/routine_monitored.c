@@ -6,7 +6,7 @@
 /*   By: lupin <lupin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 13:23:00 by arurangi          #+#    #+#             */
-/*   Updated: 2023/04/30 10:16:40 by lupin            ###   ########.fr       */
+/*   Updated: 2023/04/30 11:31:12 by lupin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 void	*start_routine_mt(void *data)
 {
 	t_uniq			*philo = (t_uniq *) data;
-	unsigned int	mode = INFINIT_BANQUET;
 
 	// init starting time
 	pthread_mutex_lock(&philo->lock_time_access);
@@ -23,21 +22,17 @@ void	*start_routine_mt(void *data)
 	philo->time_of_last_meal = philo->start_time;
 	pthread_mutex_unlock(&philo->lock_time_access);
 
-	// set the eating mode
-	if (philo->shared_data->nbr_of_meals != -1)
-		mode = LIMITED_MEALS;
-
 	// start routine
-	while (!is_full(philo, mode))
+	while (TRUE)
 	{
+		if (other_died(philo))
+			break ;
 		if (!eating_mt(philo))
 			break ;
 		if (!sleeping_mt(philo))
 			break ;
 		if (!thinking_mt(philo))
 			break ;
-		if (mode == LIMITED_MEALS)
-			philo->meals_eaten++;
 	}
 	return (NULL);
 }
@@ -46,6 +41,8 @@ void	*start_routine_mt(void *data)
 
 int	eating_mt(t_uniq *philo)
 {
+	if (other_died(philo))
+			return (QUIT);
 	take_forks(philo);
 	print_msg(philo, "is eating...........🥘", 0);
 	timer(philo->time_to_eat);
@@ -56,6 +53,8 @@ int	eating_mt(t_uniq *philo)
 
 int	sleeping_mt(t_uniq *philo)
 {
+	if (other_died(philo))
+			return (QUIT);
 	print_msg(philo, "is sleeping.........💤", 0);
 	timer(philo->time_to_sleep);
 	return (CONTINUE);
@@ -63,6 +62,8 @@ int	sleeping_mt(t_uniq *philo)
 
 int	thinking_mt(t_uniq *philo)
 {
+	if (other_died(philo))
+			return (QUIT);
 	print_msg(philo, "is thinking.........💭", 0);
 	return (CONTINUE);
 }
@@ -95,6 +96,10 @@ void	drop_forks(t_uniq *philo)
 
 void	update_time_of_last_meal(t_uniq *philo)
 {
+	pthread_mutex_lock(&philo->lock_meals_eaten);
+	philo->meals_eaten++; // mutex add ???
+	pthread_mutex_unlock(&philo->lock_meals_eaten);
+
 	pthread_mutex_lock(&philo->lock_time_access);
 	philo->time_of_last_meal = ft_get_time(); // maybe add mutex
 	pthread_mutex_unlock(&philo->lock_time_access);
