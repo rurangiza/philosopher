@@ -18,7 +18,8 @@ Variables I need to free
 
 # To-do
 ## Bugs
-- philo eats more than set meals
+- philo eats one meal less than required
+- 
 
 
 # Why learn about Assembly?
@@ -45,3 +46,10 @@ Variables I need to free
 |4 600 -5 200|
 |4 600 200 -5|
 |4 600 200 200 -5|
+
+[1] +1
+[2] 0
+[3] +1
+[4] 0
+[5] 0
+[6] 0
