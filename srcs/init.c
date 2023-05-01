@@ -6,7 +6,7 @@
 /*   By: arurangi <arurangi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 13:28:06 by arurangi          #+#    #+#             */
-/*   Updated: 2023/05/01 13:44:16 by arurangi         ###   ########.fr       */
+/*   Updated: 2023/05/01 15:06:50 by arurangi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,10 +44,9 @@ void	init_philo(t_uniq *philo, t_common *shared_data,
 	pthread_mutex_init(&philo->fork, NULL);
 	pthread_mutex_init(&philo->lock_time_access, NULL);
 	pthread_mutex_init(&philo->lock_meals_eaten, NULL);
-	philo->is_alive = TRUE;
 	philo->time_of_last_meal = 0;
-	philo->start_time = 0;
 	philo->shared_data = shared_data;
+	philo->start_time = shared_data->start_time;
 	philo->meals_eaten = 0;
 }
 
@@ -61,10 +60,8 @@ t_common	*init_shared_data(int arg_count, char **arg_list)
 	data->nbr_of_philo = ft_atoi(arg_list[1]);
 	if (data->nbr_of_philo == 1)
 	{
-		printf("%s‣%s 00000 | philo #001 %shas taken a fork%s\n",
-			CBLUE, CRESET, CBLUE, CRESET);
-		printf("%s✘%s %.5ld | philo #001 %sdied%s\n",
-			CRED, CRESET, ft_atoi(arg_list[2]), CRED, CRESET);
+		printf("0 1 has taken a fork [RIGHT]\n");
+		printf("%ld 1 died\n", ft_atoi(arg_list[2]));
 		return (NULL);
 	}
 	if (arg_count == 6)
@@ -75,5 +72,6 @@ t_common	*init_shared_data(int arg_count, char **arg_list)
 	pthread_mutex_init(&data->lock_meals, NULL);
 	pthread_mutex_init(&data->lock_deaths, NULL);
 	pthread_mutex_init(&data->lock_stdio, NULL);
+	data->start_time = ft_get_time();
 	return (data);
 }

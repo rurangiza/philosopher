@@ -6,7 +6,7 @@
 /*   By: arurangi <arurangi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/11 11:56:38 by arurangi          #+#    #+#             */
-/*   Updated: 2023/05/01 13:43:29 by arurangi         ###   ########.fr       */
+/*   Updated: 2023/05/01 14:42:09 by arurangi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,18 @@ time_t	ft_get_time(void)
 
 time_t	ft_calc_timestamp(t_uniq *philo)
 {
-	time_t	timestamp;
+	return (ft_get_time() - philo->start_time);
+}
 
-	timestamp = ft_get_time() - philo->start_time;
-	return (timestamp);
+void	timer(t_uniq *philo, time_t sleep_time)
+{
+	time_t	wake_up;
+
+	wake_up = ft_get_time() + sleep_time;
+	while (ft_get_time() < wake_up)
+	{
+		if (other_died(philo))
+			break ;
+		usleep(100);
+	}
 }

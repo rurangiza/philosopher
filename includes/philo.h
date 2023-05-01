@@ -6,7 +6,7 @@
 /*   By: arurangi <arurangi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 07:24:28 by Arsene            #+#    #+#             */
-/*   Updated: 2023/05/01 13:47:50 by arurangi         ###   ########.fr       */
+/*   Updated: 2023/05/01 14:33:47 by arurangi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,8 @@
 # define ERR_EXISTANCE -1
 # define DEATH_CURRENT 1
 # define DEATH_OTHER 2
-# define QUIT 0
-# define CONTINUE 1
+# define QUIT 1
+# define CONTINUE 0
 
 /* ------------------------------- STRUCTURES ------------------------------- */
 
@@ -54,7 +54,6 @@ typedef struct s_uniq {
 	long			time_of_last_meal;
 	long			start_time;
 	pthread_mutex_t	lock_time_access;
-	unsigned int	is_alive;
 	int				meals_eaten;
 	pthread_mutex_t	lock_meals_eaten;
 	pthread_mutex_t	fork;
@@ -116,7 +115,7 @@ int				err_user(int arg_count);
 void			print_err_msg(char **data, int arg_count, int index);
 
 /* --------------------------------- DISPLAY -------------------------------- */
-void			print_msg(t_uniq *philo, char *msg, unsigned int type);
+int				print_msg(t_uniq *philo, char *msg, unsigned int type);
 
 /* --------------------------------- LIBRARY -------------------------------- */
 long			ft_atoi(const char *str);

@@ -6,7 +6,7 @@
 /*   By: arurangi <arurangi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 13:59:11 by arurangi          #+#    #+#             */
-/*   Updated: 2023/05/01 13:37:40 by arurangi         ###   ########.fr       */
+/*   Updated: 2023/05/01 14:28:36 by arurangi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,17 +48,4 @@ long	ft_atoi(const char *str)
 		i++;
 	}
 	return (sign * result);
-}
-
-void	timer(t_uniq *philo, time_t sleep_time)
-{
-	time_t	wake_up;
-
-	wake_up = ft_get_time() + sleep_time;
-	while (ft_get_time() < wake_up)
-	{
-		if (other_died(philo))
-			break ;
-		usleep(100);
-	}
 }

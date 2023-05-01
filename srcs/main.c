@@ -6,7 +6,7 @@
 /*   By: arurangi <arurangi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 07:24:13 by Arsene            #+#    #+#             */
-/*   Updated: 2023/05/01 13:48:40 by arurangi         ###   ########.fr       */
+/*   Updated: 2023/05/01 15:07:04 by arurangi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,8 @@ int	start_simulation(t_uniq *philo, t_common *shared_data)
 			return (error_msg("pthread_create()", "can't create thread",
 					EXIT_FAILURE));
 		ptr = ptr->next;
-		usleep(1000);
+		if (i % 2 == 0)
+			usleep(1000);
 		i++;
 	}
 	if (monitoring(philo, shared_data))
@@ -54,16 +55,15 @@ void	*start_routine(void *data)
 
 	philo = (t_uniq *) data;
 	pthread_mutex_lock(&philo->lock_time_access);
-	philo->start_time = ft_get_time();
 	philo->time_of_last_meal = philo->start_time;
 	pthread_mutex_unlock(&philo->lock_time_access);
 	while (TRUE)
 	{
-		if (!eating(philo))
+		if (eating(philo))
 			break ;
-		if (!sleeping(philo))
+		if (sleeping(philo))
 			break ;
-		if (!thinking(philo))
+		if (thinking(philo))
 			break ;
 	}
 	return (NULL);
