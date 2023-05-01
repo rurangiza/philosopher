@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   routine_monitored.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lupin <lupin@student.42.fr>                +#+  +:+       +#+        */
+/*   By: arurangi <arurangi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 13:23:00 by arurangi          #+#    #+#             */
-/*   Updated: 2023/04/30 11:31:12 by lupin            ###   ########.fr       */
+/*   Updated: 2023/05/01 12:40:22 by arurangi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,6 @@ void	*start_routine_mt(void *data)
 	// start routine
 	while (TRUE)
 	{
-		if (other_died(philo))
-			break ;
 		if (!eating_mt(philo))
 			break ;
 		if (!sleeping_mt(philo))
@@ -45,7 +43,7 @@ int	eating_mt(t_uniq *philo)
 			return (QUIT);
 	take_forks(philo);
 	print_msg(philo, "is eating...........🥘", 0);
-	timer(philo->time_to_eat);
+	timer(philo, philo->time_to_eat);
 	drop_forks(philo);
 	update_time_of_last_meal(philo);
 	return (CONTINUE);
@@ -56,7 +54,7 @@ int	sleeping_mt(t_uniq *philo)
 	if (other_died(philo))
 			return (QUIT);
 	print_msg(philo, "is sleeping.........💤", 0);
-	timer(philo->time_to_sleep);
+	timer(philo, philo->time_to_sleep);
 	return (CONTINUE);
 }
 

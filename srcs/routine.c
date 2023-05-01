@@ -6,7 +6,7 @@
 /*   By: arurangi <arurangi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/11 16:29:13 by arurangi          #+#    #+#             */
-/*   Updated: 2023/04/25 10:25:24 by arurangi         ###   ########.fr       */
+/*   Updated: 2023/05/01 12:40:36 by arurangi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int	eating(t_uniq *philo)
 	// 
 	print_msg(philo, "has taken the forks", 0);
 	print_msg(philo, "is eating", 0);
-	timer(philo->time_to_eat);
+	timer(philo, philo->time_to_eat);
 	// Release forks
 	pthread_mutex_unlock(&philo->next->fork);
 	pthread_mutex_unlock(&philo->fork);
@@ -57,7 +57,7 @@ int	sleeping(t_uniq *philo)
 	if (other_died(philo))
 		return (QUIT);
 	print_msg(philo, "is sleeping", 0);
-	timer(philo->time_to_sleep);
+	timer(philo, philo->time_to_sleep);
 	return (CONTINUE);
 }
 

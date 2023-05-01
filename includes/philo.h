@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lupin <lupin@student.42.fr>                +#+  +:+       +#+        */
+/*   By: arurangi <arurangi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 07:24:28 by Arsene            #+#    #+#             */
-/*   Updated: 2023/04/30 11:19:15 by lupin            ###   ########.fr       */
+/*   Updated: 2023/05/01 12:39:26 by arurangi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,7 +139,9 @@ long			ft_get_time(void);
 long			ft_calc_timestamp(t_uniq *philo);
 
 int				ft_delay(t_uniq *philo, long time);
-void			timer(long milliseconds);
+//void			timer(long milliseconds);
+void			timer(t_uniq *philo, time_t sleep_time);
+//void	timer(t_uniq *philo, time_t sleep_time);
 
 void			update_time_of_last_meal(t_uniq *philo);
 
