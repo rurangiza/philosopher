@@ -6,7 +6,7 @@
 /*   By: arurangi <arurangi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/25 13:23:00 by arurangi          #+#    #+#             */
-/*   Updated: 2023/05/01 15:10:21 by arurangi         ###   ########.fr       */
+/*   Updated: 2023/05/01 15:30:55 by arurangi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@ int	eating(t_uniq *philo)
 	if (print_msg(philo, "is eating", 0))
 		return (QUIT);
 	timer(philo, philo->time_to_eat);
-	drop_forks(philo);
 	update_time_of_last_meal(philo);
+	drop_forks(philo);
 	return (CONTINUE);
 }
 

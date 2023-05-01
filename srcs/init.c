@@ -6,7 +6,7 @@
 /*   By: arurangi <arurangi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 13:28:06 by arurangi          #+#    #+#             */
-/*   Updated: 2023/05/01 15:06:50 by arurangi         ###   ########.fr       */
+/*   Updated: 2023/05/01 15:25:20 by arurangi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,6 @@ void	init_philo(t_uniq *philo, t_common *shared_data,
 	pthread_mutex_init(&philo->lock_meals_eaten, NULL);
 	philo->time_of_last_meal = 0;
 	philo->shared_data = shared_data;
-	philo->start_time = shared_data->start_time;
 	philo->meals_eaten = 0;
 }
 

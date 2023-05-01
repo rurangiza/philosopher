@@ -6,7 +6,7 @@
 #    By: arurangi <arurangi@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/04 07:24:25 by Arsene            #+#    #+#              #
-#    Updated: 2023/05/01 13:53:43 by arurangi         ###   ########.fr        #
+#    Updated: 2023/05/01 16:02:55 by arurangi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,7 @@ FLAGS		=	-Wall -Werror -Wextra $(LINK_OPTION) $(SANITHREAD)
 #$(SANITHREAD)
 LINK_OPTION	=	-pthread
 SANITIZER	=	-fsanitize=address
-SANITHREAD	=	-fsanitize=thread
+SANITHREAD	=	#-fsanitize=thread
 
 # ~~~~~~~~ COLOR  ~~~~~~~~~~ #
 CLR_BLACK   = \033[0;30m

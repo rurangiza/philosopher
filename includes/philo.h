@@ -6,7 +6,7 @@
 /*   By: arurangi <arurangi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 07:24:28 by Arsene            #+#    #+#             */
-/*   Updated: 2023/05/01 14:33:47 by arurangi         ###   ########.fr       */
+/*   Updated: 2023/05/01 16:20:46 by arurangi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,5 +130,6 @@ void			print_list(t_uniq **last);
 long			ft_get_time(void);
 long			ft_calc_timestamp(t_uniq *philo);
 void			timer(t_uniq *philo, time_t sleep_time);
+void			msleep(time_t time, char *msg);
 
 #endif

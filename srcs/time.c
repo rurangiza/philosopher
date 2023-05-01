@@ -6,7 +6,7 @@
 /*   By: arurangi <arurangi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/11 11:56:38 by arurangi          #+#    #+#             */
-/*   Updated: 2023/05/01 14:42:09 by arurangi         ###   ########.fr       */
+/*   Updated: 2023/05/01 16:19:49 by arurangi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,4 +36,10 @@ void	timer(t_uniq *philo, time_t sleep_time)
 			break ;
 		usleep(100);
 	}
+}
+
+void	msleep(time_t time, char *msg)
+{
+	(void)msg;
+	usleep(time * 1000);
 }
