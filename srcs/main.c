@@ -6,7 +6,7 @@
 /*   By: arurangi <arurangi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 07:24:13 by Arsene            #+#    #+#             */
-/*   Updated: 2023/05/01 12:13:32 by arurangi         ###   ########.fr       */
+/*   Updated: 2023/05/01 12:48:36 by arurangi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,13 +87,13 @@ int	monitoring(t_uniq *philo, t_common *shared_data)
 		meals_count = 0;
 		while (index < philo->shared_data->nbr_of_philo)
 		{
-			if (is_full(shared_data, meals_count))
-				return (1);
 			if (is_dead(philo))
 				return (1);
 			pthread_mutex_lock(&philo->lock_meals_eaten);
 			meals_count += philo->meals_eaten;
 			pthread_mutex_unlock(&philo->lock_meals_eaten);
+			if (is_full(shared_data, meals_count))
+				return (1);
 			philo = philo->next;
 			index++;
 		}

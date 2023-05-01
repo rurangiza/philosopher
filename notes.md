@@ -17,11 +17,8 @@ Variables I need to free
         - or, they've eaten their maximum number of meals
 
 # To-do
-- stop simulation right after a thread died
-    - check return values of pthread_join()
-    - print some text in the main to check when a thread died
-- prevent deadlocks
-    - read pdf and understand
+## Bugs
+- philo eats more than set meals
 
 
 # Why learn about Assembly?
