@@ -6,7 +6,7 @@
 /*   By: arurangi <arurangi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 07:24:28 by Arsene            #+#    #+#             */
-/*   Updated: 2023/05/01 12:39:26 by arurangi         ###   ########.fr       */
+/*   Updated: 2023/05/01 13:47:50 by arurangi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,12 +30,8 @@
 # define ERR_EXISTANCE -1
 # define DEATH_CURRENT 1
 # define DEATH_OTHER 2
-
 # define QUIT 0
 # define CONTINUE 1
-
-# define INFINIT_BANQUET 1
-# define LIMITED_MEALS 0
 
 /* ------------------------------- STRUCTURES ------------------------------- */
 
@@ -82,7 +78,8 @@ typedef struct s_uniq {
 # define YELLOW	"\e[1;33m"
 
 /* ------------------------------- INITIALIZER ------------------------------ */
-void			save_user_input(t_common *global, int arg_count, char **arg_list);
+void			save_user_input(t_common *global, int arg_count,
+					char **arg_list);
 t_uniq			*init_data(int arg_count, char **arg_list);
 t_common		*init_shared_data(int arg_count, char **arg_list);
 void			init_philo(t_uniq *philo, t_common *shared_data,
@@ -91,28 +88,24 @@ void			init_philo(t_uniq *philo, t_common *shared_data,
 /* -------------------------------- EXECUTION ------------------------------- */
 int				start_simulation(t_uniq *philo, t_common *shared_data);
 void			end_simulation(t_uniq *philo);
-int				monitor_simulation(t_uniq *philo);
+int				monitoring(t_uniq *philo, t_common *shared_data);
+void			*start_routine(void *data);
 
 /* --------------------------------- ROUTINE -------------------------------- */
-void			*start_routine(void *data);
-//void			*start_monitoring(void *data);
-
 int				eating(t_uniq *philo);
+void			drop_forks(t_uniq *philo);
+void			take_forks(t_uniq *philo);
+void			update_time_of_last_meal(t_uniq *philo);
+
 int				sleeping(t_uniq *philo);
 int				thinking(t_uniq *philo);
 
-void			*start_routine_mt(void *data);
-int				eating_mt(t_uniq *philo);
-int				sleeping_mt(t_uniq *philo);
-int				thinking_mt(t_uniq *philo);
-
-void			drop_forks(t_uniq *philo);
-void			take_forks(t_uniq *philo);
-
 /* --------------------------------- CHECKER -------------------------------- */
+// Input
 int				valid_user_input(int arg_count, char **arg_list);
 int				ft_is_only_digits(char *str);
 int				ft_isdigit(char ch);
+// Other
 int				other_died(t_uniq *philo);
 int				is_dead(t_uniq *philo);
 int				is_full(t_common *shared_data, int meals_count);
@@ -120,9 +113,9 @@ int				is_full(t_common *shared_data, int meals_count);
 /* --------------------------------- ERRORS --------------------------------- */
 int				error_msg(char *type, char *msg, int code);
 int				err_user(int arg_count);
+void			print_err_msg(char **data, int arg_count, int index);
 
 /* --------------------------------- DISPLAY -------------------------------- */
-//void			display(void);
 void			print_msg(t_uniq *philo, char *msg, unsigned int type);
 
 /* --------------------------------- LIBRARY -------------------------------- */
@@ -137,14 +130,6 @@ void			print_list(t_uniq **last);
 /* --------------------------------- CALCUL --------------------------------- */
 long			ft_get_time(void);
 long			ft_calc_timestamp(t_uniq *philo);
-
-int				ft_delay(t_uniq *philo, long time);
-//void			timer(long milliseconds);
 void			timer(t_uniq *philo, time_t sleep_time);
-//void	timer(t_uniq *philo, time_t sleep_time);
-
-void			update_time_of_last_meal(t_uniq *philo);
-
-int				monitoring(t_uniq *philo, t_common *shared_data);
 
 #endif

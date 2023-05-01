@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lupin <lupin@student.42.fr>                +#+  +:+       +#+        */
+/*   By: arurangi <arurangi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 13:28:06 by arurangi          #+#    #+#             */
-/*   Updated: 2023/04/30 10:58:51 by lupin            ###   ########.fr       */
+/*   Updated: 2023/05/01 13:44:16 by arurangi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,10 @@ t_uniq	*init_data(int arg_count, char **arg_list)
 	return (philo);
 }
 
-void	init_philo(t_uniq *philo, t_common *shared_data, char **arg_list, int counter)
+void	init_philo(t_uniq *philo, t_common *shared_data,
+	char **arg_list, int counter)
 {
-	philo->number = counter+1;
+	philo->number = counter + 1;
 	philo->time_to_die = ft_atoi(arg_list[2]);
 	philo->time_to_eat = ft_atoi(arg_list[3]);
 	philo->time_to_sleep = ft_atoi(arg_list[4]);

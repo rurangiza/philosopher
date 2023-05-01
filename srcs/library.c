@@ -6,7 +6,7 @@
 /*   By: arurangi <arurangi@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 13:59:11 by arurangi          #+#    #+#             */
-/*   Updated: 2023/05/01 12:40:57 by arurangi         ###   ########.fr       */
+/*   Updated: 2023/05/01 13:37:40 by arurangi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ unsigned int	ft_strlen(const char *str)
 	if (str)
 	{
 		while (str[len])
-			len++;	
+			len++;
 	}
 	return (len);
 }
@@ -52,24 +52,13 @@ long	ft_atoi(const char *str)
 
 void	timer(t_uniq *philo, time_t sleep_time)
 {
-	// Variable pour mesurer quand le philo doit se réveiller :
 	time_t	wake_up;
 
 	wake_up = ft_get_time() + sleep_time;
-        // On boucle tant qu'on est pas arrivé au moment de réveil :
 	while (ft_get_time() < wake_up)
 	{
-		// On vérifie si la simulation s'est arrêtée, et si oui, on
-		// arrête la boucle (et donc cette fonction) immédiatement
-		// pour passer à la suite :
 		if (other_died(philo))
 			break ;
-		// Si la simulation ne s'est pas arrêtée, on usleep une petite valeur :
 		usleep(100);
 	}
 }
-
-
-
-
-

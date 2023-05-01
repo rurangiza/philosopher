@@ -6,7 +6,7 @@
 #    By: arurangi <arurangi@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/04 07:24:25 by Arsene            #+#    #+#              #
-#    Updated: 2023/04/28 16:59:40 by arurangi         ###   ########.fr        #
+#    Updated: 2023/05/01 13:48:59 by arurangi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,7 +45,8 @@ SRC_FILES	=	$(SRC_FOLDER)main.c \
 				$(SRC_FOLDER)linkedlist.c \
 				$(SRC_FOLDER)routine.c \
 				$(SRC_FOLDER)time.c \
-				$(SRC_FOLDER)routine_monitored.c \
+				$(SRC_FOLDER)utils.c \
+				$(SRC_FOLDER)input.c \
 
 # ~~~~~~~~~ OBJECT FILES ~~~~~~~~~~~ 
 
