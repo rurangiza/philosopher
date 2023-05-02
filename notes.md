@@ -20,3 +20,6 @@
 100 800 200 200   no one should die
 105 800 200 200   no one should die
 200 800 200 200   no one should die
+
+## Bug
+3 300 230 60     a philo should die, one does but program hangs at pthread_join

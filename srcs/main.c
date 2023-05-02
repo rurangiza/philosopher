@@ -6,7 +6,7 @@
 /*   By: lupin <lupin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 07:24:13 by Arsene            #+#    #+#             */
-/*   Updated: 2023/05/02 10:35:26 by lupin            ###   ########.fr       */
+/*   Updated: 2023/05/02 20:44:21 by lupin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,16 +90,16 @@ void	end_simulation(t_uniq *philo)
 		head = head->next;
 		i++;
 	}
-	pthread_mutex_destroy(&philo->shared_data->lock_meals);
-	pthread_mutex_destroy(&philo->shared_data->lock_deaths);
-	pthread_mutex_destroy(&philo->shared_data->lock_stdio);
+	destroy_mutex_trio(&philo->shared_data->lock_meals,
+		&philo->shared_data->lock_deaths, &philo->shared_data->lock_stdio);
 	head = philo;
 	i = 0;
 	while (i < head->shared_data->nbr_of_philo)
 	{
-		pthread_mutex_destroy(&head->fork);
-		pthread_mutex_destroy(&head->lock_time_access);
-		pthread_mutex_destroy(&head->lock_meals_eaten);
+		pthread_mutex_unlock(&head->fork);
+		destroy_mutex_trio(&head->fork,
+			&head->lock_time_access, &head->lock_meals_eaten);
+		head = head->next;
 		i++;
 	}
 	free(philo->shared_data);

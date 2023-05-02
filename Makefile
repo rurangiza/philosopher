@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: arurangi <arurangi@student.42.fr>          +#+  +:+       +#+         #
+#    By: lupin <lupin@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/04 07:24:25 by Arsene            #+#    #+#              #
-#    Updated: 2023/05/01 16:02:55 by arurangi         ###   ########.fr        #
+#    Updated: 2023/05/02 20:27:11 by lupin            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -47,6 +47,7 @@ SRC_FILES	=	$(SRC_FOLDER)main.c \
 				$(SRC_FOLDER)time.c \
 				$(SRC_FOLDER)utils.c \
 				$(SRC_FOLDER)input.c \
+				$(SRC_FOLDER)memory_mgmnt.c \
 
 # ~~~~~~~~~ OBJECT FILES ~~~~~~~~~~~ 
 

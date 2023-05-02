@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arurangi <arurangi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lupin <lupin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 07:24:28 by Arsene            #+#    #+#             */
-/*   Updated: 2023/05/01 16:20:46 by arurangi         ###   ########.fr       */
+/*   Updated: 2023/05/02 18:08:10 by lupin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,9 @@
 # define DEATH_OTHER 2
 # define QUIT 1
 # define CONTINUE 0
+
+# define EINVAL 22
+# define EBUSY 16
 
 /* ------------------------------- STRUCTURES ------------------------------- */
 
@@ -113,6 +116,9 @@ int				is_full(t_common *shared_data, int meals_count);
 int				error_msg(char *type, char *msg, int code);
 int				err_user(int arg_count);
 void			print_err_msg(char **data, int arg_count, int index);
+
+void			destroy_mutex_trio(pthread_mutex_t *uno,
+					pthread_mutex_t *dos, pthread_mutex_t *tres);
 
 /* --------------------------------- DISPLAY -------------------------------- */
 int				print_msg(t_uniq *philo, char *msg, unsigned int type);
