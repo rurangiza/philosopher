@@ -6,7 +6,7 @@
 #    By: lupin <lupin@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/04/04 07:24:25 by Arsene            #+#    #+#              #
-#    Updated: 2023/05/02 20:27:11 by lupin            ###   ########.fr        #
+#    Updated: 2023/05/02 21:00:01 by lupin            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,11 +15,12 @@ NAME		=	philo
 
 COMPILER	=	gcc
 
-FLAGS		=	-Wall -Werror -Wextra $(LINK_OPTION) $(SANITHREAD)
+FLAGS		=	-Wall -Werror -Wextra $(LINK_OPTION) 
 #$(SANITHREAD)
+#$(SANITIZER)
 LINK_OPTION	=	-pthread
 SANITIZER	=	-fsanitize=address
-SANITHREAD	=	#-fsanitize=thread
+SANITHREAD	=	-fsanitize=thread
 
 # ~~~~~~~~ COLOR  ~~~~~~~~~~ #
 CLR_BLACK   = \033[0;30m
