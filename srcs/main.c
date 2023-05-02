@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arurangi <arurangi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lupin <lupin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/04 07:24:13 by Arsene            #+#    #+#             */
-/*   Updated: 2023/05/01 16:30:55 by arurangi         ###   ########.fr       */
+/*   Updated: 2023/05/02 10:35:26 by lupin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,25 +49,6 @@ int	start_simulation(t_uniq *philo, t_common *shared_data)
 	if (monitoring(philo, shared_data))
 		return (EXIT_FAILURE);
 	return (EXIT_SUCCESS);
-}
-
-void	*start_routine(void *data)
-{
-	t_uniq	*philo;
-
-	philo = (t_uniq *) data;
-	if (philo->number % 2 == 0)
-			msleep(1, "odd & even eat seperatly");
-	while (TRUE)
-	{
-		if (eating(philo))
-			break ;
-		if (sleeping(philo))
-			break ;
-		if (thinking(philo))
-			break ;
-	}
-	return (NULL);
 }
 
 int	monitoring(t_uniq *philo, t_common *shared_data)

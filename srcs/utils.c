@@ -3,14 +3,38 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arurangi <arurangi@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lupin <lupin@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/01 13:29:49 by arurangi          #+#    #+#             */
-/*   Updated: 2023/05/01 15:32:54 by arurangi         ###   ########.fr       */
+/*   Updated: 2023/05/02 10:24:34 by lupin            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
+
+void	take_forks(t_uniq *philo)
+{
+	if (philo->number < philo->next->number)
+	{
+		pthread_mutex_lock(&philo->fork);
+		print_msg(philo, "has taken the RIGHT fork", 0);
+		pthread_mutex_lock(&philo->next->fork);
+		print_msg(philo, "has taken the LEFT fork", 0);
+	}
+	else
+	{
+		pthread_mutex_lock(&philo->next->fork);
+		print_msg(philo, "has taken the LEFT fork", 0);
+		pthread_mutex_lock(&philo->fork);
+		print_msg(philo, "has taken the RIGHT fork", 0);
+	}
+}
+
+void	drop_forks(t_uniq *philo)
+{
+	pthread_mutex_unlock(&philo->next->fork);
+	pthread_mutex_unlock(&philo->fork);
+}
 
 void	update_time_of_last_meal(t_uniq *philo)
 {
